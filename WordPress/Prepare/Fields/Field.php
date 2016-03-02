@@ -19,29 +19,29 @@ abstract class Field extends Singleton implements FieldInterface {
 	/**
 	 * @var string|array
 	 *
-	 * The post type(s) to apply the filters too
+	 * The type(s) to apply the filters too, can be a mix of post types & taxonomies
 	 */
-	protected $post_type = 'global';
+	protected $type = 'global';
 
 	/**
 	 * Registers the required actions with WordPress
 	 */
 	protected function __construct() {
 
-		if( is_array( $this->post_type ) ) {
-			foreach( $this->post_type as $post_type ) {
+		if( is_array( $this->type ) ) {
+			foreach( $this->type as $post_type ) {
 				if( ! is_string( $post_type ) ) {
 					add_filter(
-						$this->filter_base . '/prepare/meta/' . $this->post_type . '/' . $this->field,
+						$this->filter_base . '/prepare/meta/' . $this->type . '/' . $this->field,
 						[ $this, 'handle' ]
 					);
 				}
 			}
 		}
 
-		if( is_string( $this->post_type ) ) {
+		if( is_string( $this->type ) ) {
 			add_filter(
-				$this->filter_base . '/prepare/meta/' . $this->post_type . '/' . $this->field,
+				$this->filter_base . '/prepare/meta/' . $this->type . '/' . $this->field,
 				[ $this, 'handle' ]
 			);
 		}

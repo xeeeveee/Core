@@ -2,9 +2,6 @@
 
 namespace Xeeeveee\Core\Requests\Rest;
 
-use Guzzle\Http\Client as GuzzleClient;
-use Xeeeveee\Core\Exceptions\ComposerInstallationRequiredException;
-
 class Client implements ClientInterface {
 
 	/**

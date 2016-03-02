@@ -8,7 +8,7 @@ use Xeeeveee\Core\Exceptions\EmptyOrUndefinedException;
 use Xeeeveee\Core\Exceptions\NotStringException;
 use Xeeeveee\Core\Utility\Singleton;
 
-abstract class Settings extends Singleton implements SettingsInterface {
+abstract class Page extends Singleton implements SettingsInterface {
 
 	use ConfigurationTrait;
 

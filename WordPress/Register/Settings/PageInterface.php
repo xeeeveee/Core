@@ -1,7 +1,7 @@
 <?php
 namespace Xeeeveee\Core\WordPress\Register\Settings;
 
-interface SettingsInterface {
+interface PageInterface {
 
 	public function render();
 

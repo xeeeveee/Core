@@ -96,11 +96,11 @@ class Post extends Singleton implements PostInterface {
 			/*
 			 * Format <base>/prepare/meta<post type>/<meta key>
 			 */
-			$meta->meta_value = apply_filters( $this->filter_base . '/prepare/meta/global/global', $meta->meta_key,
+			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/global', $meta->meta_key,
 				$meta->meta_value );
-			$meta->meta_value = apply_filters( $this->filter_base . '/prepare/meta/global/' . $meta->meta_key,
+			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/' . $meta->meta_key,
 				$meta->meta_value );
-			$meta->meta_value = apply_filters( $this->filter_base . '/prepare/meta/' . $post->post_type . '/' . $meta->meta_key,
+			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/' . $post->post_type . '/' . $meta->meta_key,
 				$meta->meta_value );
 
 			if ( isset( $post->meta->{$meta->meta_key} ) ) {

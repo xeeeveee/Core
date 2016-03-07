@@ -135,7 +135,7 @@ class Cache implements CacheInterface {
 		}
 
 		if ( ! file_exists( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path ) ) {
-			mkdir( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path );
+			mkdir( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path, 0777, true );
 		}
 
 		$this->cache_directory = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR;

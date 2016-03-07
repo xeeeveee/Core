@@ -19,9 +19,14 @@ class Cache implements CacheInterface {
 
 	/**
 	 * Sets the default cache directory
+	 *
+	 * @param string $directory
+	 *
+	 * @throws EmptyOrUndefinedException
+	 * @throws NotStringException
 	 */
-	public function __construct() {
-		$this->set_cache_directory( $this->prefix . 'cache' );
+	public function __construct( $directory = 'cache' ) {
+		$this->set_cache_directory( $this->prefix . $directory );
 	}
 
 	/**

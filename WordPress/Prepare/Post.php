@@ -29,7 +29,10 @@ class Post extends Singleton implements PostInterface {
 	protected function __construct() {
 		$this->term_transformer = Term::get_instance();
 		$this->cache            = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'posts' );
-		add_filter( 'the_posts', [ $this, 'prepare_collection' ], 20, 2 );
+
+		if( ! is_admin() ) {
+			add_filter( 'the_posts', [ $this, 'prepare_collection' ], 20, 2 );
+		}
 	}
 
 	/**
@@ -44,7 +47,7 @@ class Post extends Singleton implements PostInterface {
 
 		$cache = apply_filters( $this->filter_base . 'prepare/post/cache', true, $posts );
 
-		if ( $cache ) {
+		if ( $cache && ! is_admin() ) {
 			$prepared_posts = $this->cache->get( $this->get_cache_key( $posts ) );
 			if ( $prepared_posts !== false ) {
 				return $prepared_posts;
@@ -66,7 +69,7 @@ class Post extends Singleton implements PostInterface {
 			}
 		}
 
-		if ( $cache ) {
+		if ( $cache && ! is_admin() ) {
 			$this->cache->add( $this->get_cache_key( $posts ), $prepared_posts );
 		}
 

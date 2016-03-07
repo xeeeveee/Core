@@ -41,7 +41,7 @@ class Cache implements CacheInterface {
 			'data'   => serialize( $data )
 		];
 
-		$file = $this->cache_directory . self::encode_id( $id );
+		$file = $this->cache_directory . $this->encode_id( $id );
 
 		return file_put_contents( $file, serialize( $data ) );
 	}
@@ -54,14 +54,14 @@ class Cache implements CacheInterface {
 	 * @return bool|mixed
 	 */
 	public function get( $id ) {
-		if ( ! file_exists( $this->cache_directory . self::encode_id( $id ) ) ) {
+		if ( ! file_exists( $this->cache_directory . $this->encode_id( $id ) ) ) {
 			return false;
 		}
 
-		$data = unserialize( file_get_contents( $this->cache_directory . self::encode_id( $id ) ) );
+		$data = unserialize( file_get_contents( $this->cache_directory . $this->encode_id( $id ) ) );
 
 		if ( time() > ( $data['time'] + $data['expire'] ) ) {
-			self::remove( self::encode_id( $id ) );
+			$this->remove( $this->encode_id( $id ) );
 
 			return false;
 		}
@@ -72,13 +72,14 @@ class Cache implements CacheInterface {
 	/**
 	 * Removes a single item from cache
 	 *
+	 *
 	 * @param $id
 	 *
 	 * @return bool
 	 */
 	public function remove( $id ) {
-		if ( file_exists( $this->cache_directory . self::encode_id( $id ) ) && is_file( $this->cache_directory . self::encode_id( $id ) ) ) {
-			return unlink( $this->cache_directory . self::encode_id( $id ) );
+		if ( file_exists( $this->cache_directory . $this->encode_id( $id ) ) && is_file( $this->cache_directory . $this->encode_id( $id ) ) ) {
+			return unlink( $this->cache_directory . $this->encode_id( $id ) );
 		}
 
 		return false;

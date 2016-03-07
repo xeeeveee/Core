@@ -2,6 +2,7 @@
 
 namespace Xeeeveee\Core\WordPress\Prepare;
 
+use Xeeeveee\Core\Cache\Cache;
 use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Utility\Singleton;
 use stdClass;
@@ -18,10 +19,16 @@ class Post extends Singleton implements PostInterface {
 	protected $term_transformer;
 
 	/**
+	 * @var Cache
+	 */
+	protected $cache;
+
+	/**
 	 * Registers the required actions with WordPress
 	 */
 	protected function __construct() {
 		$this->term_transformer = Term::get_instance();
+		$this->cache            = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'posts' );
 		add_filter( 'the_posts', [ $this, 'prepare_collection' ], 20, 2 );
 	}
 
@@ -34,6 +41,15 @@ class Post extends Singleton implements PostInterface {
 	 * @return array
 	 */
 	public function prepare_collection( array $posts = [ ], $include_terms = true ) {
+
+		$cache = apply_filters( $this->filter_base . 'prepare/post/cache', true, $posts );
+
+		if ( $cache ) {
+			$prepared_posts = $this->cache->get( $this->get_cache_key( $posts ) );
+			if ( $prepared_posts !== false ) {
+				return $prepared_posts;
+			}
+		}
 
 		$prepared_posts = [ ];
 		$meta           = $this->get_meta( $posts );
@@ -48,6 +64,10 @@ class Post extends Singleton implements PostInterface {
 			if ( $post instanceof WP_Post ) {
 				$prepared_posts[] = $this->prepare( $post, $meta, $terms );
 			}
+		}
+
+		if ( $cache ) {
+			$this->cache->add( $this->get_cache_key( $posts ), $prepared_posts );
 		}
 
 		return $posts;
@@ -191,5 +211,34 @@ class Post extends Singleton implements PostInterface {
 		$sql .= join( $placeholders, ', ' ) . ") ";
 
 		return $wpdb->get_results( $wpdb->prepare( $sql, $ids ) );
+	}
+
+	/**
+	 * Get the cache key for a post or collection
+	 *
+	 * Will return the post ID's, separated by a common in base64 format
+	 *
+	 * @param array|WP_Post $posts
+	 *
+	 * @return bool|string
+	 */
+	protected function get_cache_key( $posts ) {
+
+		if ( is_array( $posts ) ) {
+			$ids = [ ];
+			foreach ( $posts as $post ) {
+				if ( $post instanceof WP_Post ) {
+					$ids[] = base_convert( $post->ID, 10, 36 );
+				}
+			}
+
+			return join( $ids, '.' );
+		}
+
+		if ( $posts instanceof WP_Post ) {
+			return base_convert( $posts->ID, 10, 36 );
+		}
+
+		return false;
 	}
 }

@@ -8,5 +8,5 @@ trait ConfigurationTrait {
 
 	public $prefix = 'xcore_';
 
-	public $filter_base = 'xcore';
+	public $filter_base = 'xcore/';
 }

@@ -2,6 +2,7 @@
 
 namespace Xeeeveee\Core\WordPress\Prepare;
 
+use Xeeeveee\Core\Cache\Cache;
 use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Utility\Singleton;
 use stdClass;
@@ -15,6 +16,7 @@ class Term extends Singleton implements TermInterface {
 	 * Registers the required actions with WordPress
 	 */
 	protected function __construct() {
+		$this->cache = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'terms' );
 		add_filter( 'get_terms', [ $this, 'prepare_collection' ] );
 	}
 
@@ -78,6 +80,16 @@ class Term extends Singleton implements TermInterface {
 	 */
 	public function prepare_collection( array $terms = [ ] ) {
 
+		$cache = apply_filters( $this->filter_base . 'prepare/term/cache', true, $terms );
+
+		if ( $cache ) {
+			$prepared_terms = $this->cache->get( $this->get_cache_key( $terms ) );
+
+			if ( $prepared_terms !== false ) {
+				return $prepared_terms;
+			}
+		}
+
 		$prepared_terms = [ ];
 		$meta           = $this->get_meta( $terms );
 
@@ -85,6 +97,10 @@ class Term extends Singleton implements TermInterface {
 			if ( $term instanceof WP_Term ) {
 				$prepared_terms[] = $this->prepare( $term, $meta );
 			}
+		}
+
+		if ( $cache ) {
+			$this->cache->add( $this->get_cache_key( $terms ), $prepared_terms );
 		}
 
 		return $prepared_terms;
@@ -121,5 +137,34 @@ class Term extends Singleton implements TermInterface {
 		$sql .= join( $placeholders, ', ' ) . ") ";
 
 		return $wpdb->get_results( $wpdb->prepare( $sql, $ids ) );
+	}
+
+	/**
+	 * Get the cache key for a post or collection
+	 *
+	 * Will return the post ID's, separated by a common in base64 format
+	 *
+	 * @param array|WP_Term $terms
+	 *
+	 * @return bool|string
+	 */
+	protected function get_cache_key( $terms ) {
+
+		if ( is_array( $terms ) ) {
+			$ids = [ ];
+			foreach ( $terms as $term ) {
+				if ( $term instanceof WP_Term ) {
+					$ids[] = base_convert( $term->ID, 10, 36 );
+				}
+			}
+
+			return join( $ids, '.' );
+		}
+
+		if ( $terms instanceof WP_Term ) {
+			return base_convert( $terms->ID, 10, 36 );
+		}
+
+		return false;
 	}
 }

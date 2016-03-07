@@ -45,8 +45,7 @@ class Term extends Singleton implements TermInterface {
 			/*
 			* Format <base>/prepare/meta/<taxonomy>/<meta key>
 			*/
-			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/global', $meta->meta_key,
-				$meta->meta_value );
+			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/global', $meta->meta_value );
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/' . $meta->meta_key,
 				$meta->meta_value );
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/' . $term->taxonomy . '/' . $meta->meta_key,

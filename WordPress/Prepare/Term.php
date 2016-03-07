@@ -13,6 +13,11 @@ class Term extends Singleton implements TermInterface {
 	use ConfigurationTrait;
 
 	/**
+	 * @var Cache
+	 */
+	protected $cache;
+
+	/**
 	 * Registers the required actions with WordPress
 	 */
 	protected function __construct() {

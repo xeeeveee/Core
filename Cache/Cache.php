@@ -138,7 +138,7 @@ class Cache implements CacheInterface {
 			mkdir( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path );
 		}
 
-		$this->cache_directory = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path;
+		$this->cache_directory = WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR;
 	}
 
 	/**

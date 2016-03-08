@@ -18,17 +18,39 @@ class Select extends Element {
 		$html .= $this->get_attributes_string();
 		$html .= ' >';
 
-		// TODO: Add support for option groups
-
 		foreach ( $this->options as $value => $label ) {
-			$html .= '<option value="' . $value . '" ';
-			$html .= selected( $value, $this->value );
-			$html .= ' >';
-			$html .= $label;
-			$html .= '</option>';
+			if ( is_array( $label ) ) {
+				$html .= '<optgroup label="' . $label . '">';
+				foreach ( $label as $group_value => $group_label ) {
+					$html .= $this->get_option_html( $group_value, $group_label );
+				}
+				$html .= '</optgroup>';
+			}
+			$html .= $this->get_option_html( $value, $label );
 		}
 
 		$html .= '</' . $this->type . '>';
+
+		return $html;
+	}
+
+	/**
+	 * Gets the HTML for a group of options
+	 *
+	 * @param $value string
+	 * @param $label string
+	 *
+	 * @return string
+	 * @internal param $options
+	 *
+	 */
+	protected function get_option_html( $value, $label ) {
+
+		$html = '<option value="' . $value . '" ';
+		$html .= selected( $value, $this->value );
+		$html .= ' >';
+		$html .= $label;
+		$html .= '</option>';
 
 		return $html;
 	}

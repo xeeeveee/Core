@@ -206,7 +206,7 @@ abstract class Element extends Tag implements ElementInterface {
 	 * @return $this
 	 */
 	public function set_value( $value ) {
-		if ( is_string( $value ) || is_numeric( $value ) ) {
+		if ( is_string( $value ) || is_numeric( $value ) || is_array( $value ) ) {
 			$this->value = $value;
 		}
 

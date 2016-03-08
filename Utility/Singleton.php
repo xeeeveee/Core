@@ -7,7 +7,7 @@ abstract class Singleton {
 	/**
 	 * @var $this
 	 *
-	 * The reference to a *Singleton* instance of this class
+	 * The reference to a Singleton instance of this class
 	 */
 	protected static $instances;
 
@@ -27,23 +27,23 @@ abstract class Singleton {
 	}
 
 	/**
-	 * Protected constructor to prevent creating a new instance of the
-	 * *Singleton* via the `new` operator from outside of this class.
+	 * Protected constructor to prevent creating a new instance of the Singleton
 	 */
 	protected function __construct() {
+
 	}
 
 	/**
-	 * Private clone method to prevent cloning of the instance of the
-	 * *Singleton* instance.
+	 * Private clone method to prevent cloning of the instance of the Singleton* instance
 	 */
 	private function __clone() {
+
 	}
 
 	/**
-	 * Private unserialize method to prevent unserializing of the *Singleton*
-	 * instance.
+	 * Private unserialize method to prevent unserializing of the Singleton instance
 	 */
 	private function __wakeup() {
+
 	}
 }

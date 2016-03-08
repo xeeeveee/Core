@@ -4,8 +4,6 @@ namespace Xeeeveee\Core\Utility;
 
 interface TagInterface {
 
-	public function set_reserved_attributes( array $attributes );
-
 	public function get_reserved_attributes();
 
 	public function set_attributes( array $attributes = [ ] );

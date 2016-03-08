@@ -30,9 +30,16 @@ abstract class Element extends Tag implements ElementInterface {
 	/**
 	 * The current value of the element
 	 *
-	 * @var string
+	 * @var string|array
 	 */
 	protected $value;
+
+	/**
+	 * The options for the input
+	 *
+	 * @var array
+	 */
+	protected $options = [ ];
 
 	/**
 	 * The text to display as a tooltip for this element
@@ -112,6 +119,10 @@ abstract class Element extends Tag implements ElementInterface {
 
 		if ( isset( $args['value'] ) ) {
 			$this->set_value( $args['value'] );
+		}
+
+		if ( isset( $args['options'] ) && is_array( $args['options'] ) ) {
+			$this->set_options( $args['options'] );
 		}
 
 		if ( isset( $args['tooltip'] ) ) {
@@ -218,6 +229,63 @@ abstract class Element extends Tag implements ElementInterface {
 	 */
 	public function get_value() {
 		return $this->value;
+	}
+
+	/**
+	 * Sets the options
+	 *
+	 * @param array $options
+	 *
+	 * @return $this
+	 */
+	public function set_options( array $options = [ ] ) {
+		if ( is_array( $options ) ) {
+			$this->options = $options;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Add options
+	 *
+	 * @param array $options
+	 * @param bool $override
+	 *
+	 * @return $this
+	 */
+	public function add_options( array $options = [ ], $override = true ) {
+		foreach ( $options as $key => $val ) {
+			if ( $override == false ) {
+				if ( isset( $this->$options[ $key ] ) ) {
+					continue;
+				}
+			}
+
+			$this->$options[ $key ] = $val;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get the options
+	 *
+	 * @return array
+	 */
+	public function get_options() {
+		return $this->options;
+	}
+
+	/**
+	 * Clears the existing options
+	 *
+	 * @return array
+	 */
+	public function clear_options() {
+		$this->options = [ ];
+
+		return $this;
 	}
 
 	/**

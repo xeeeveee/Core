@@ -57,6 +57,14 @@ class Container extends Singleton implements ContainerInterface {
 		return false;
 	}
 
+	/**
+	 * Checks if a key already exists within the container
+	 * 
+	 * @param $key
+	 *
+	 * @return bool
+	 * @throws NotStringException
+	 */
 	public function exists( $key ) {
 		if ( ! is_string( $key ) ) {
 			throw new NotStringException( 'Parameter "$key" is not of type string in ' . get_class( $this ) );

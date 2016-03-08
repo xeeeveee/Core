@@ -27,8 +27,34 @@ abstract class Tag implements TagInterface {
 	 *
 	 * @return $this
 	 */
-	public function set_reserved_attributes( array $attributes ) {
+	protected function set_reserved_attributes( array $attributes ) {
 		$this->reserved_attributes = $attributes;
+
+		return $this;
+	}
+
+	/**
+	 * Set the reserved attributes
+	 *
+	 * @param array $attribute
+	 *
+	 * @return $this
+	 */
+	protected function add_reserved_attribute( $attribute ) {
+		$this->reserved_attributes[] =  $attribute;
+
+		return $this;
+	}
+
+	/**
+	 * Set the reserved attributes
+	 *
+	 * @param array $attributes
+	 *
+	 * @return $this
+	 */
+	protected function add_reserved_attributes( array $attributes ) {
+		$this->reserved_attributes = array_merge( $this->reserved_attributes, $attributes );
 
 		return $this;
 	}

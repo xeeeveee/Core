@@ -47,7 +47,11 @@ class Select extends Element {
 	protected function get_option_html( $value, $label ) {
 
 		$html = '<option value="' . $value . '" ';
-		$html .= selected( $value, $this->value );
+
+		if ( ( is_array( $this->value ) && in_array( $value, $this->value ) ) || ( $value == $this->value ) ) {
+			$html .= 'selected';
+		}
+
 		$html .= ' >';
 		$html .= $label;
 		$html .= '</option>';

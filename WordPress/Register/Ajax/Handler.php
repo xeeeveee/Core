@@ -4,7 +4,7 @@ namespace Xeeeveee\Core\WordPress\Register\Ajax;
 
 use Xeeeveee\Core\Utility\Singleton;
 
-abstract class AjaxHandler extends Singleton implements AjaxHandlerInterface {
+abstract class Handler extends Singleton implements HandlerInterface {
 
 	/**
 	 * @var string

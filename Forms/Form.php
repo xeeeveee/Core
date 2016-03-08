@@ -51,7 +51,7 @@ class Form implements FormInterface {
 	 *
 	 * @var array
 	 */
-	protected $reservedAttributes = [
+	protected $reserved_attributes = [
 		'method',
 		'action'
 	];
@@ -63,7 +63,7 @@ class Form implements FormInterface {
 	 *
 	 * @var array
 	 */
-	protected $protectedElementTypes = array(
+	protected $protected_element_types = array(
 		'submit',
 		'button',
 		'html'
@@ -76,27 +76,27 @@ class Form implements FormInterface {
 	 */
 	public function __construct( $args ) {
 		if ( isset( $args['elements'] ) ) {
-			$this->setElements( $args['elements'] );
+			$this->set_elements( $args['elements'] );
 		}
 
 		if ( isset( $args['attributes'] ) ) {
-			$this->setAttributes( $args['attributes'] );
+			$this->set_attributes( $args['attributes'] );
 		}
 
 		if ( isset( $args['wrappers'] ) ) {
-			$this->setWrappers( $args['wrappers'] );
+			$this->set_wrappers( $args['wrappers'] );
 		}
 
 		if ( isset( $args['method'] ) ) {
-			$this->setMethod( $args['method'] );
+			$this->set_method( $args['method'] );
 		}
 
 		if ( isset( $args['action'] ) ) {
-			$this->setAction( $args['action'] );
+			$this->set_action( $args['action'] );
 		}
 
 		if ( isset( $args['values'] ) ) {
-			$this->setValues( $args['values'] );
+			$this->set_values( $args['values'] );
 		}
 	}
 
@@ -107,7 +107,7 @@ class Form implements FormInterface {
 	 *
 	 * @return bool
 	 */
-	public function setAction( $action ) {
+	public function set_action( $action ) {
 		if ( is_string( $action ) ) {
 			$this->action = $action;
 		}
@@ -120,7 +120,7 @@ class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	public function getAction() {
+	public function get_action() {
 		return $this->action;
 	}
 
@@ -131,7 +131,7 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function setMethod( $method ) {
+	public function set_method( $method ) {
 		if ( is_string( $method ) ) {
 			$this->method = strtoupper( $method );
 		}
@@ -144,7 +144,7 @@ class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	public function getMethod() {
+	public function get_method() {
 		return $this->method;
 	}
 
@@ -155,8 +155,8 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function setReservedAttributes( array $attributes ) {
-		$this->reservedAttributes = $attributes;
+	public function set_reserved_attributes( array $attributes ) {
+		$this->reserved_attributes = $attributes;
 
 		return $this;
 	}
@@ -166,19 +166,19 @@ class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	public function getReservedAttributes() {
-		return $this->reservedAttributes;
+	public function get_reserved_attributes() {
+		return $this->reserved_attributes;
 	}
 
 	/**
 	 * Set the guarded types
 	 *
-	 * @param array $protectedElementTypes
+	 * @param array $protected_element_types
 	 *
 	 * @return $this
 	 */
-	public function setProtectedElementTypes( array $protectedElementTypes = [ ] ) {
-		$this->protectedElementTypes = $protectedElementTypes;
+	public function set_protected_element_types( array $protected_element_types = [ ] ) {
+		$this->protected_element_types = $protected_element_types;
 
 		return $this;
 	}
@@ -188,24 +188,24 @@ class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	public function getProtectedElementTypes() {
-		return $this->protectedElementTypes;
+	public function get_protected_element_types() {
+		return $this->protected_element_types;
 	}
 
 	/**
 	 * Set the attributes
 	 *
-	 * This difference from addAttributes in that is will erase all the existing attributes and assign the new ones
+	 * This difference from add_attributes in that is will erase all the existing attributes and assign the new ones
 	 *
 	 * @param array $attributes the attributes to add
 	 *
 	 * @return $this
 	 */
-	public function setAttributes( array $attributes = [ ] ) {
-		$this->clearAttributes();
+	public function set_attributes( array $attributes = [ ] ) {
+		$this->clear_attributes();
 
 		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reservedAttributes ) && is_array( $val ) ) {
+			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
 				$this->attributes[ $key ] = $val;
 			}
 		}
@@ -216,16 +216,16 @@ class Form implements FormInterface {
 	/**
 	 * Add attributes
 	 *
-	 * This differs from setAttributes in that is does not erase the attributes before adding the new ones
+	 * This differs from set_attributes in that is does not erase the attributes before adding the new ones
 	 *
 	 * @param array $attributes
 	 * @param bool $override
 	 *
 	 * @return $this
 	 */
-	public function addAttributes( array $attributes = [ ], $override = true ) {
+	public function add_attributes( array $attributes = [ ], $override = true ) {
 		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reservedAttributes ) && is_array( $val ) ) {
+			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
 				if ( $override == false ) {
 					if ( isset( $this->attributes[ $key ] ) ) {
 						continue;
@@ -244,7 +244,7 @@ class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	public function getAttributes() {
+	public function get_attributes() {
 		return $this->attributes;
 	}
 
@@ -253,7 +253,7 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function clearAttributes() {
+	public function clear_attributes() {
 		$this->attributes = [ ];
 		
 		return $this;
@@ -268,10 +268,10 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function setValues( array $values = [ ] ) {
+	public function set_values( array $values = [ ] ) {
 		foreach ( $this->elements as $element ) {
 			if ( ! in_array( $element->getType(),
-					$this->protectedElementTypes ) && isset( $values[ $element->getName() ] )
+					$this->protected_element_types ) && isset( $values[ $element->getName() ] )
 			) {
 				$element->setValue( $values[ $element->getName() ] );
 			} else {
@@ -292,9 +292,9 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function addValues( array $values = [ ], $override = true ) {
+	public function add_values( array $values = [ ], $override = true ) {
 		foreach ( $this->elements as $element ) {
-			if ( ! in_array( $element->type, $this->protectedElementTypes ) && isset( $values[ $element->name ] ) ) {
+			if ( ! in_array( $element->type, $this->protected_element_types ) && isset( $values[ $element->name ] ) ) {
 				$element->setValue( $values[ $element->name ] );
 			}
 		}
@@ -307,11 +307,11 @@ class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	public function getValues() {
+	public function get_values() {
 		$values = [ ];
 
 		foreach ( $this->elements as $element ) {
-			if ( ! in_array( $element->type, $this->protectedElementTypes ) ) {
+			if ( ! in_array( $element->type, $this->protected_element_types ) ) {
 				$values[] = $element->getValue();
 			}
 		}
@@ -324,9 +324,9 @@ class Form implements FormInterface {
 	 *
 	 * @return bool true on success
 	 */
-	public function clearValues() {
+	public function clear_values() {
 		foreach ( $this->elements as $element ) {
-			if ( ! in_array( $element->type, $this->protectedElementTypes ) ) {
+			if ( ! in_array( $element->type, $this->protected_element_types ) ) {
 				$element->clearValue();
 			}
 		}
@@ -337,17 +337,17 @@ class Form implements FormInterface {
 	/**
 	 * Sets the elements
 	 *
-	 * This differs from addElements in that is erases the existing elements before adding the new ones
+	 * This differs from add_elements in that is erases the existing elements before adding the new ones
 	 *
 	 * @param array $elements
 	 *
 	 * @return $this
 	 */
-	public function setElements( array $elements = [ ] ) {
+	public function set_elements( array $elements = [ ] ) {
 		$this->elements = [ ];
 
 		foreach ( $elements as $element ) {
-			$this->addElement( $element );
+			$this->add_element( $element );
 		}
 
 		return $this;
@@ -356,16 +356,16 @@ class Form implements FormInterface {
 	/**
 	 * Adds the elements
 	 *
-	 * This differs from setElements in that is does not erase the existing elements before adding the new ones
+	 * This differs from set_elements in that is does not erase the existing elements before adding the new ones
 	 *
 	 * @param array $elements
 	 * @param bool $override
 	 *
 	 * @return $this
 	 */
-	public function addElements( array $elements = [ ], $override = true ) {
+	public function add_elements( array $elements = [ ], $override = true ) {
 		foreach ( $elements as $element ) {
-			$this->addElement( $element, $override );
+			$this->add_element( $element, $override );
 		}
 
 		return $this;
@@ -383,7 +383,7 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function addElement( array $element, $override = true ) {
+	public function add_element( array $element, $override = true ) {
 		if ( isset( $element['type'] ) && isset( $element['name'] ) ) {
 			if ( $override == false ) {
 				if ( isset( $this->elements[ $element['name'] ] ) ) {
@@ -409,7 +409,7 @@ class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	public function getElements() {
+	public function get_elements() {
 		return $this->elements;
 	}
 
@@ -420,7 +420,7 @@ class Form implements FormInterface {
 	 *
 	 * @return \Xeeeveee\Core\Forms\Elements\ElementInterface|bool
 	 */
-	public function getElement( $name ) {
+	public function get_element( $name ) {
 		if ( isset( $this->elements[ $name ] ) ) {
 			return $this->elements[ $name ];
 		}
@@ -433,7 +433,7 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function clearElements() {
+	public function clear_elements() {
 		unset( $this->elements );
 
 		return $this;
@@ -446,7 +446,7 @@ class Form implements FormInterface {
 	 *
 	 * @return $this
 	 */
-	public function setWrappers( array $wrappers ) {
+	public function set_wrappers( array $wrappers ) {
 		$this->wrappers = [ ];
 
 		if ( isset( $wrappers['block'] ) && is_array( $wrappers['block'] ) ) {
@@ -475,13 +475,13 @@ class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	public function getWrappers() {
+	public function get_wrappers() {
 		$wrappers = [ ];
 
 		foreach ( $this->elements as $element ) {
 			$wrappers[ $element->getName() ] = [
 				'block'   => $element->getBlockWrappers(),
-				'element' => $element->getElementWrappers()
+				'element' => $element->get_elementWrappers()
 			];
 		}
 
@@ -493,10 +493,10 @@ class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	public function getHtml() {
-		$html = $this->getFormOpeningHtml();
-		$html .= $this->getElementsHtml();
-		$html .= $this->getFormClosingHtml();
+	public function get_html() {
+		$html = $this->get_form_opening_html();
+		$html .= $this->get_elements_html();
+		$html .= $this->get_form_closing_html();
 
 		return $html;
 	}
@@ -506,10 +506,10 @@ class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	public function getElementsHtml() {
+	public function get_elements_html() {
 		$html = '';
 		foreach ( $this->elements as $element ) {
-			$html .= $element->getHtml();
+			$html .= $element->get_html();
 		}
 
 		return $html;
@@ -520,7 +520,7 @@ class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	public function getFormOpeningHtml() {
+	public function get_form_opening_html() {
 		$html = '<form ';
 
 		if ( ! empty( $this->method ) ) {
@@ -548,7 +548,7 @@ class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	public function getFormClosingHtml() {
+	public function get_form_closing_html() {
 		return '</form>';
 	}
 }

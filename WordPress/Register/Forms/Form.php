@@ -51,11 +51,11 @@ abstract class Form implements FormInterface {
 	 */
 	public function __construct() {
 		$this->form = new \Xeeeveee\Core\Forms\Form( [ ] );
-		$this->form->setAction( $this->get_action() );
-		$this->form->setMethod( $this->get_method() );
-		$this->form->addAttributes( $this->get_attributes() );
-		$this->form->addElements( $this->get_elements() );
-		$this->form->addElements( $this->get_values() );
+		$this->form->set_action( $this->get_action() );
+		$this->form->set_method( $this->get_method() );
+		$this->form->set_attributes( $this->get_attributes() );
+		$this->form->set_elements( $this->get_elements() );
+		$this->form->set_values( $this->get_values() );
 	}
 
 	/**

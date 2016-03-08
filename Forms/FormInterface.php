@@ -4,57 +4,57 @@ namespace Xeeeveee\Core\Forms;
 
 interface FormInterface {
 
-	public function setAction( $action );
+	public function set_action( $action );
 
-	public function getAction();
+	public function get_action();
 
-	public function setMethod( $method );
+	public function set_method( $method );
 
-	public function getMethod();
+	public function get_method();
 
-	public function setReservedAttributes( array $attributes );
+	public function set_reserved_attributes( array $attributes );
 
-	public function getReservedAttributes();
+	public function get_reserved_attributes();
 
-	public function setProtectedElementTypes( array $protectedElementTypes = [ ] );
+	public function set_protected_element_types( array $protected_element_types = [ ] );
 
-	public function getProtectedElementTypes();
+	public function get_protected_element_types();
 
-	public function setAttributes( array $attributes = [ ] );
+	public function set_attributes( array $attributes = [ ] );
 
-	public function addAttributes( array $attributes = [ ], $override = true );
+	public function add_attributes( array $attributes = [ ], $override = true );
 
-	public function getAttributes();
+	public function get_attributes();
 
-	public function clearAttributes();
+	public function clear_attributes();
 
-	public function setValues( array $values = [ ] );
+	public function set_values( array $values = [ ] );
 
-	public function addValues( array $values = [ ], $override = true );
+	public function add_values( array $values = [ ], $override = true );
 
-	public function getValues();
+	public function get_values();
 
-	public function clearValues();
+	public function clear_values();
 
-	public function setElements( array $elements = [ ] );
+	public function set_elements( array $elements = [ ] );
 
-	public function addElements( array $elements = [ ], $override = true );
+	public function add_elements( array $elements = [ ], $override = true );
 
-	public function addElement( array $elements, $override = true );
+	public function add_element( array $elements, $override = true );
 
-	public function getElements();
+	public function get_elements();
 
-	public function clearElements();
+	public function clear_elements();
 
-	public function setWrappers( array $wrappers );
+	public function set_wrappers( array $wrappers );
 
-	public function getWrappers();
+	public function get_wrappers();
 
-	public function getHtml();
+	public function get_html();
 
-	public function getElementsHtml();
+	public function get_elements_html();
 
-	public function getFormOpeningHtml();
+	public function get_form_opening_html();
 
-	public function getFormClosingHtml();
+	public function get_form_closing_html();
 }

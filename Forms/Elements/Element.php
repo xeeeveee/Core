@@ -469,7 +469,7 @@ abstract class Element extends Tag implements ElementInterface {
 	public function get_element_html() {
 		$html = '<input name="' . $this->name . '" type="' . $this->type . '" ';
 
-		if ( ! empty( $this->value ) ) {
+		if ( ! empty( $this->value ) && is_string( $this->value ) ) {
 			$html .= 'value="' . $this->value . '" ';
 		}
 

@@ -3,8 +3,9 @@
 namespace Xeeeveee\Core\Forms;
 
 use Xeeeveee\Core\Exceptions\ElementNotFoundException;
+use Xeeeveee\Core\Utility\Tag;
 
-class Form implements FormInterface {
+class Form extends Tag implements FormInterface {
 
 	/**
 	 * The elements attached to this form
@@ -12,13 +13,6 @@ class Form implements FormInterface {
 	 * @var array
 	 */
 	protected $elements = [ ];
-
-	/**
-	 * The attributes to be added to the html tag
-	 *
-	 * @var array
-	 */
-	protected $attributes = [ ];
 
 	/**
 	 * The form method
@@ -35,16 +29,6 @@ class Form implements FormInterface {
 	protected $action = '';
 
 	/**
-	 * The element wrappers
-	 *
-	 * @var array
-	 */
-	protected $wrappers = [
-		'block'   => '',
-		'element' => ''
-	];
-
-	/**
 	 * Reserved attributes
 	 *
 	 * These will be ignored if added as attributes
@@ -54,6 +38,16 @@ class Form implements FormInterface {
 	protected $reserved_attributes = [
 		'method',
 		'action'
+	];
+
+	/**
+	 * The element wrappers
+	 *
+	 * @var array
+	 */
+	protected $wrappers = [
+		'block'   => '',
+		'element' => ''
 	];
 
 	/**
@@ -149,28 +143,6 @@ class Form implements FormInterface {
 	}
 
 	/**
-	 * Set the reserved attributes
-	 *
-	 * @param array $attributes
-	 *
-	 * @return $this
-	 */
-	public function set_reserved_attributes( array $attributes ) {
-		$this->reserved_attributes = $attributes;
-
-		return $this;
-	}
-
-	/**
-	 * Get the reserved attributes
-	 *
-	 * @return array
-	 */
-	public function get_reserved_attributes() {
-		return $this->reserved_attributes;
-	}
-
-	/**
 	 * Set the guarded types
 	 *
 	 * @param array $protected_element_types
@@ -190,73 +162,6 @@ class Form implements FormInterface {
 	 */
 	public function get_protected_element_types() {
 		return $this->protected_element_types;
-	}
-
-	/**
-	 * Set the attributes
-	 *
-	 * This difference from add_attributes in that is will erase all the existing attributes and assign the new ones
-	 *
-	 * @param array $attributes the attributes to add
-	 *
-	 * @return $this
-	 */
-	public function set_attributes( array $attributes = [ ] ) {
-		$this->clear_attributes();
-
-		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
-				$this->attributes[ $key ] = $val;
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Add attributes
-	 *
-	 * This differs from set_attributes in that is does not erase the attributes before adding the new ones
-	 *
-	 * @param array $attributes
-	 * @param bool $override
-	 *
-	 * @return $this
-	 */
-	public function add_attributes( array $attributes = [ ], $override = true ) {
-		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
-				if ( $override == false ) {
-					if ( isset( $this->attributes[ $key ] ) ) {
-						continue;
-					}
-				}
-
-				$this->attributes[ $key ] = $val;
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Get the attributes
-	 *
-	 * @return array
-	 */
-	public function get_attributes() {
-		return $this->attributes;
-	}
-
-	/**
-	 * Clears the existing attributes
-	 *
-	 * @return $this
-	 */
-	public function clear_attributes() {
-		$this->attributes = [ ];
-		
-		return $this;
 	}
 
 	/**

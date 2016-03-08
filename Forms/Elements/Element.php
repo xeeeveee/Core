@@ -2,7 +2,9 @@
 
 namespace Xeeeveee\Core\Forms\Elements;
 
-abstract class Element implements ElementInterface {
+use Xeeeveee\Core\Utility\Tag;
+
+abstract class Element extends Tag implements ElementInterface {
 
 	/**
 	 * The name of the element
@@ -17,13 +19,6 @@ abstract class Element implements ElementInterface {
 	 * @var string
 	 */
 	protected $type;
-
-	/**
-	 * Attributes to be added to the html tag
-	 *
-	 * @var array
-	 */
-	protected $attributes;
 
 	/**
 	 * Wording of the label for this element
@@ -166,73 +161,6 @@ abstract class Element implements ElementInterface {
 	 */
 	public function get_type() {
 		return $this->type;
-	}
-
-	/**
-	 * Set the attributes
-	 *
-	 * This difference from add_attributes in that is will erase all the existing attributes and assign the new ones
-	 *
-	 * @param array $attributes
-	 *
-	 * @return $this
-	 */
-	public function set_attributes( array $attributes = [ ] ) {
-		$this->clear_attributes();
-
-		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
-				$this->attributes[ $key ] = $val;
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Add attributes
-	 *
-	 * This differs from set_attributes in that is does not erase the attributes before adding the new ones
-	 *
-	 * @param array $attributes
-	 * @param bool $override
-	 *
-	 * @return $this
-	 */
-	public function add_attributes( array $attributes = [ ], $override = true ) {
-		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
-				if ( $override == false ) {
-					if ( isset( $this->attributes[ $key ] ) ) {
-						continue;
-					}
-				}
-
-				$this->attributes[ $key ] = $val;
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Get the attributes
-	 *
-	 * @return array
-	 */
-	public function get_attributes() {
-		return $this->attributes;
-	}
-
-	/**
-	 * Clears the existing attributes
-	 *
-	 * @return $this
-	 */
-	public function clear_attributes() {
-		$this->attributes = [ ];
-
-		return $this;
 	}
 
 	/**

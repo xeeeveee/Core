@@ -58,7 +58,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @var string
 	 */
-	protected $tooltipLocation = 'block';
+	protected $tooltip_location = 'block';
 
 	/**
 	 * Reserved attribute names
@@ -67,7 +67,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @var array
 	 */
-	protected $reservedAttributes = [
+	protected $reserved_attributes = [
 		'value',
 		'selected',
 		'checked',
@@ -80,7 +80,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @var array
 	 */
-	protected $blockWrapClasses = [
+	protected $block_wrap_classes = [
 		'form-group'
 	];
 
@@ -89,7 +89,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @var array
 	 */
-	protected $elementWrapClasses = [
+	protected $element_wrap_classes = [
 		'element'
 	];
 
@@ -103,35 +103,35 @@ abstract class Element implements ElementInterface {
 	 */
 	public function __construct( $name, $args = [ ] ) {
 
-		$this->setName( $name );
+		$this->set_name( $name );
 
 		if ( isset( $args['attributes'] ) ) {
-			$this->setAttributes( $args['attributes'] );
+			$this->set_attributes( $args['attributes'] );
 		} else {
-			$this->setAttributes( [ ] );
+			$this->set_attributes( [ ] );
 		}
 
 		if ( isset( $args['label'] ) ) {
-			$this->setLabel( $args['label'] );
+			$this->set_label( $args['label'] );
 		}
 
 		if ( isset( $args['value'] ) ) {
-			$this->setValue( $args['value'] );
+			$this->set_value( $args['value'] );
 		}
 
 		if ( isset( $args['tooltip'] ) ) {
-			$this->setTooltip( $args['tooltip'] );
+			$this->set_tooltip( $args['tooltip'] );
 			if ( isset( $args['tooltip-location'] ) ) {
-				$this->setTooltipLocation( $args['tooltip-location'] );
+				$this->set_tooltip_location( $args['tooltip-location'] );
 			}
 		}
 
 		if ( isset( $args['wrappers']['block'] ) && is_array( $args['wrappers']['block'] ) ) {
-			$this->setBlockWrappers( $args['wrappers']['block'] );
+			$this->set_block_wrappers( $args['wrappers']['block'] );
 		}
 
 		if ( isset( $args['wrappers']['element'] ) && is_array( $args['wrappers']['element'] ) ) {
-			$this->setElementWrappers( $args['wrappers']['element'] );
+			$this->set_element_wrappers( $args['wrappers']['element'] );
 		}
 	}
 
@@ -142,7 +142,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setName( $name ) {
+	public function set_name( $name ) {
 		if ( is_string( $name ) ) {
 			$this->name = $name;
 		}
@@ -155,7 +155,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getName() {
+	public function get_name() {
 		return $this->name;
 	}
 
@@ -164,24 +164,24 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getType() {
+	public function get_type() {
 		return $this->type;
 	}
 
 	/**
 	 * Set the attributes
 	 *
-	 * This difference from addAttributes in that is will erase all the existing attributes and assign the new ones
+	 * This difference from add_attributes in that is will erase all the existing attributes and assign the new ones
 	 *
 	 * @param array $attributes
 	 *
 	 * @return $this
 	 */
-	public function setAttributes( array $attributes = [ ] ) {
-		$this->clearAttributes();
+	public function set_attributes( array $attributes = [ ] ) {
+		$this->clear_attributes();
 
 		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reservedAttributes ) && is_array( $val ) ) {
+			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
 				$this->attributes[ $key ] = $val;
 			}
 		}
@@ -192,16 +192,16 @@ abstract class Element implements ElementInterface {
 	/**
 	 * Add attributes
 	 *
-	 * This differs from setAttributes in that is does not erase the attributes before adding the new ones
+	 * This differs from set_attributes in that is does not erase the attributes before adding the new ones
 	 *
 	 * @param array $attributes
 	 * @param bool $override
 	 *
 	 * @return $this
 	 */
-	public function addAttributes( array $attributes = [ ], $override = true ) {
+	public function add_attributes( array $attributes = [ ], $override = true ) {
 		foreach ( $attributes as $key => $val ) {
-			if ( ! in_array( $key, $this->reservedAttributes ) && is_array( $val ) ) {
+			if ( ! in_array( $key, $this->reserved_attributes ) && is_array( $val ) ) {
 				if ( $override == false ) {
 					if ( isset( $this->attributes[ $key ] ) ) {
 						continue;
@@ -220,7 +220,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return array
 	 */
-	public function getAttributes() {
+	public function get_attributes() {
 		return $this->attributes;
 	}
 
@@ -229,7 +229,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function clearAttributes() {
+	public function clear_attributes() {
 		$this->attributes = [ ];
 
 		return $this;
@@ -242,7 +242,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setLabel( $label ) {
+	public function set_label( $label ) {
 		if ( is_string( $label ) ) {
 			$this->label = $label;
 		}
@@ -255,7 +255,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getLabel() {
+	public function get_label() {
 		return $this->label;
 	}
 
@@ -266,7 +266,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setValue( $value ) {
+	public function set_value( $value ) {
 		if ( is_string( $value ) || is_numeric( $value ) ) {
 			$this->value = $value;
 		}
@@ -277,7 +277,7 @@ abstract class Element implements ElementInterface {
 	/**
 	 * Clears the value
 	 */
-	public function clearValue() {
+	public function clear_value() {
 		$this->value = '';
 
 		return $this;
@@ -288,7 +288,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getValue() {
+	public function get_value() {
 		return $this->value;
 	}
 
@@ -299,7 +299,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setTooltip( $tooltip ) {
+	public function set_tooltip( $tooltip ) {
 		if ( is_string( $tooltip ) || is_array( $tooltip ) ) {
 			$this->tooltip = $tooltip;
 		}
@@ -312,7 +312,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getTooltip() {
+	public function get_tooltip() {
 		return $this->tooltip;
 	}
 
@@ -323,9 +323,9 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setTooltipLocation( $location ) {
+	public function set_tooltip_location( $location ) {
 		if ( is_string( $location ) && ( $location == 'label' || $location == 'element' || $location == 'block' ) ) {
-			$this->tooltipLocation = $location;
+			$this->tooltip_location = $location;
 		}
 
 		return $this;
@@ -336,8 +336,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getTooltipLocation() {
-		return $this->tooltipLocation;
+	public function get_tooltip_location() {
+		return $this->tooltip_location;
 	}
 
 	/**
@@ -347,8 +347,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setBlockWrappers( array $wrappers = [ ] ) {
-		$this->blockWrapClasses = $wrappers;
+	public function set_block_wrappers( array $wrappers = [ ] ) {
+		$this->block_wrap_classes = $wrappers;
 
 		return $this;
 	}
@@ -361,15 +361,15 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function addBlockWrappers( array $wrappers = [ ], $override = true ) {
+	public function add_block_wrappers( array $wrappers = [ ], $override = true ) {
 		foreach ( $wrappers as $key => $val ) {
 			if ( $override == false ) {
-				if ( isset( $this->blockWrapClasses[ $key ] ) ) {
+				if ( isset( $this->block_wrap_classes[ $key ] ) ) {
 					continue;
 				}
 			}
 
-			$this->blockWrapClasses[ $key ] = $val;
+			$this->block_wrap_classes[ $key ] = $val;
 		}
 
 		return $this;
@@ -380,8 +380,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return array
 	 */
-	public function getBlockWrappers() {
-		return $this->blockWrapClasses;
+	public function get_block_wrappers() {
+		return $this->block_wrap_classes;
 	}
 
 	/**
@@ -389,8 +389,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function clearBlockWrappers() {
-		$this->blockWrapClasses = [ ];
+	public function clear_block_wrappers() {
+		$this->block_wrap_classes = [ ];
 
 		return $this;
 	}
@@ -402,8 +402,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function setElementWrappers( array $wrappers = [ ] ) {
-		$this->elementWrapClasses = $wrappers;
+	public function set_element_wrappers( array $wrappers = [ ] ) {
+		$this->element_wrap_classes = $wrappers;
 
 		return $this;
 	}
@@ -416,15 +416,15 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function addElementWrappers( array $wrappers = [ ], $override = true ) {
+	public function add_element_wrappers( array $wrappers = [ ], $override = true ) {
 		foreach ( $wrappers as $key => $val ) {
 			if ( $override == false ) {
-				if ( isset( $this->elementWrapClasses[ $key ] ) ) {
+				if ( isset( $this->element_wrap_classes[ $key ] ) ) {
 					continue;
 				}
 			}
 
-			$this->elementWrapClasses[ $key ] = $val;
+			$this->element_wrap_classes[ $key ] = $val;
 		}
 
 		return $this;
@@ -435,8 +435,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return array
 	 */
-	public function getElementWrappers() {
-		return $this->elementWrapClasses;
+	public function get_element_wrappers() {
+		return $this->element_wrap_classes;
 	}
 
 	/**
@@ -444,8 +444,8 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return $this
 	 */
-	public function clearElementWrappers() {
-		$this->elementWrapClasses = [ ];
+	public function clear_element_wrappers() {
+		$this->element_wrap_classes = [ ];
 
 		return $this;
 	}
@@ -455,12 +455,12 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getHtml() {
-		$html = $this->getPreBlockHtml();
-		$html .= $this->getPreElementHtml();
-		$html .= $this->getElementHtml();
-		$html .= $this->getPostElementHtml();
-		$html .= $this->getPostBlockHtml();
+	public function get_html() {
+		$html = $this->get_pre_block_html();
+		$html .= $this->get_pre_element_html();
+		$html .= $this->get_element_html();
+		$html .= $this->get_post_element_html();
+		$html .= $this->get_post_block_html();
 
 		return $html;
 	}
@@ -470,14 +470,14 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getElementHtml() {
+	public function get_element_html() {
 		$html = '<input name="' . $this->name . '" type="' . $this->type . '" ';
 
 		if ( ! empty( $this->value ) ) {
 			$html .= 'value="' . $this->value . '" ';
 		}
 
-		$html .= $this->getAttributesString();
+		$html .= $this->get_attributes_string();
 		$html .= ' />';
 
 		return $html;
@@ -488,7 +488,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getTooltipHtml() {
+	public function get_tooltip_html() {
 		$html = '';
 
 		if ( ! empty( $this->tooltip ) && is_string( $this->tooltip ) ) {
@@ -527,12 +527,12 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getPreBlockHtml() {
+	public function get_pre_block_html() {
 		$html    = '';
 		$classes = [ ];
 
-		if ( isset( $this->blockWrapClasses ) && ! empty( $this->blockWrapClasses ) ) {
-			$classes = array_merge( $classes, $this->blockWrapClasses );
+		if ( isset( $this->block_wrap_classes ) && ! empty( $this->block_wrap_classes ) ) {
+			$classes = array_merge( $classes, $this->block_wrap_classes );
 		}
 
 		$html .= '<div class="';
@@ -551,11 +551,11 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getPostBlockHtml() {
+	public function get_post_block_html() {
 		$html = '';
 
-		if ( $this->tooltipLocation == 'block' ) {
-			$html .= $this->getTooltipHtml();
+		if ( $this->tooltip_location == 'block' ) {
+			$html .= $this->get_tooltip_html();
 		}
 
 		$html .= '</div>';
@@ -568,18 +568,18 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getPreElementHtml() {
+	public function get_pre_element_html() {
 		$html    = '';
 		$classes = [ ];
 
-		if ( $this->tooltipLocation == 'label' ) {
-			$html .= $this->getTooltipHtml();
+		if ( $this->tooltip_location == 'label' ) {
+			$html .= $this->get_tooltip_html();
 		}
 
 		$html .= '<div class="';
 
-		if ( isset( $this->elementWrapClasses ) && ! empty( $this->elementWrapClasses ) ) {
-			$classes = array_merge( $classes, $this->elementWrapClasses );
+		if ( isset( $this->element_wrap_classes ) && ! empty( $this->element_wrap_classes ) ) {
+			$classes = array_merge( $classes, $this->element_wrap_classes );
 		}
 
 		$html .= $this->name . ' ' . $this->type . ' ' . join( ' ', $classes );
@@ -593,11 +593,11 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	public function getPostElementHtml() {
+	public function get_post_element_html() {
 		$html = '';
 
-		if ( $this->tooltipLocation == 'element' ) {
-			$html .= $this->getTooltipHtml();
+		if ( $this->tooltip_location == 'element' ) {
+			$html .= $this->get_tooltip_html();
 		}
 
 		$html .= '</div>';
@@ -614,7 +614,7 @@ abstract class Element implements ElementInterface {
 	 *
 	 * @return string
 	 */
-	protected function getAttributesString( $input = null ) {
+	protected function get_attributes_string( $input = null ) {
 		$html = '';
 
 		if ( $input != null && isset( $this->attributes[ $input ] ) ) {

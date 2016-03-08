@@ -4,65 +4,65 @@ namespace Xeeeveee\Core\Forms\Elements;
 
 interface ElementInterface {
 
-	public function setName( $name );
+	public function set_name( $name );
 
-	public function getName();
+	public function get_name();
 
-	public function getType();
+	public function get_type();
 
-	public function setAttributes( array $attributes = [ ] );
+	public function set_attributes( array $attributes = [ ] );
 
-	public function addAttributes( array $attributes = [ ], $override = true );
+	public function add_attributes( array $attributes = [ ], $override = true );
 
-	public function getAttributes();
+	public function get_attributes();
 
-	public function clearAttributes();
+	public function clear_attributes();
 
-	public function setLabel( $label );
+	public function set_label( $label );
 
-	public function getLabel();
+	public function get_label();
 
-	public function setValue( $value );
+	public function set_value( $value );
 
-	public function getValue();
+	public function get_value();
 
-	public function clearValue();
+	public function clear_value();
 
-	public function getTooltip();
+	public function get_tooltip();
 
-	public function setTooltip( $tooltip );
+	public function set_tooltip( $tooltip );
 
-	public function setTooltipLocation( $location );
+	public function set_tooltip_location( $location );
 
-	public function getTooltipLocation();
+	public function get_tooltip_location();
 
-	public function setBlockWrappers( array $wrappers = [ ] );
+	public function set_block_wrappers( array $wrappers = [ ] );
 
-	public function addBlockWrappers( array $wrappers = [ ], $override = true );
+	public function add_block_wrappers( array $wrappers = [ ], $override = true );
 
-	public function getBlockWrappers();
+	public function get_block_wrappers();
 
-	public function clearBlockWrappers();
+	public function clear_block_wrappers();
 
-	public function setElementWrappers( array $wrappers = [ ] );
+	public function set_element_wrappers( array $wrappers = [ ] );
 
-	public function addElementWrappers( array $wrappers = [ ], $override = true );
+	public function add_element_wrappers( array $wrappers = [ ], $override = true );
 
-	public function getElementWrappers();
+	public function get_element_wrappers();
 
-	public function clearElementWrappers();
+	public function clear_element_wrappers();
 
-	public function getHtml();
+	public function get_html();
 
-	public function getElementHtml();
+	public function get_element_html();
 
-	public function getTooltipHtml();
+	public function get_tooltip_html();
 
-	public function getPreBlockHtml();
+	public function get_pre_block_html();
 
-	public function getPostBlockHtml();
+	public function get_post_block_html();
 
-	public function getPreElementHtml();
+	public function get_pre_element_html();
 
-	public function getPostElementHtml();
+	public function get_post_element_html();
 }

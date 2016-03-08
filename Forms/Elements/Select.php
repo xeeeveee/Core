@@ -12,7 +12,7 @@ class Select extends Element {
 	/**
 	 * @inherit
 	 */
-	public function getElementHtml() {
+	public function get_element_html() {
 
 		$html = '<' . $this->type . ' name="' . $this->name . '" ';
 		$html .= $this->get_attributes_string();

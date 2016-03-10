@@ -2,7 +2,8 @@
 
 namespace Xeeeveee\Core\WordPress\Register\Decorators;
 
-interface DecoratorInterface  {
+interface DecoratorInterface {
 
+	public function attach( $decorator, $original );
 }
 

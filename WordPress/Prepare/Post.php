@@ -30,7 +30,7 @@ class Post extends Singleton implements PostInterface {
 		$this->term_transformer = Term::get_instance();
 		$this->cache            = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'posts' );
 
-		if( ! is_admin() ) {
+		if ( ! is_admin() ) {
 			add_filter( 'the_posts', [ $this, 'prepare_collection' ], 20, 2 );
 		}
 	}
@@ -129,6 +129,16 @@ class Post extends Singleton implements PostInterface {
 			} else {
 				$post->terms->{$term->taxonomy} = [ $term ];
 			}
+		}
+
+		/*
+		 * Format <base>/prepare/post/<post type>/decorator
+		 */
+		$decorator = apply_filters( $this->filter_base . 'prepare/post/global/decorator', null, $post );
+		$decorator = apply_filters( $this->filter_base . 'prepare/post/' . $post->post_type . '/decorator', $decorator, $post );
+
+		if ( is_object( $decorator ) ) {
+			$post->decorator = $decorator;
 		}
 
 		return $post;

@@ -22,5 +22,5 @@ add_action( 'plugins_loaded', function () {
 	$container->add( 'Xeeeveee\Core\WordPress\Prepare\Post', Post::get_instance() );
 	$container->add( 'Xeeeveee\Core\WordPress\Prepare\Term', Term::get_instance() );
 	$container->add( 'Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator', PostDecorator::get_instance() );
-}, 1 );
+});
 

@@ -13,6 +13,7 @@ namespace Xeeeveee\Core;
 use Xeeeveee\Core\Container\Container;
 use Xeeeveee\Core\WordPress\Prepare\Post;
 use Xeeeveee\Core\WordPress\Prepare\Term;
+use Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator;
 
 require_once( __DIR__ . DIRECTORY_SEPARATOR . 'Autoloader.php' );
 
@@ -20,5 +21,6 @@ add_action( 'plugins_loaded', function () {
 	$container = Container::get_instance();
 	$container->add( 'Xeeeveee\Core\WordPress\Prepare\Post', Post::get_instance() );
 	$container->add( 'Xeeeveee\Core\WordPress\Prepare\Term', Term::get_instance() );
+	$container->add( 'Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator', PostDecorator::get_instance() );
 }, 1 );
 

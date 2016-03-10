@@ -1,26 +1,44 @@
 <?php
-/*
- * Plugin Name: Core
- * Plugin URI: https://github.com/xeeeveee/core
- * Description: WordPress Core Plugin
- * Author: Jack Neary
- * Version: 0.1
- * Author URI: https://github.com/xeeeveee/core
- */
 
 namespace Xeeeveee\Core;
 
+use Xeeeveee\Core\Utility\Singleton;
+use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Container\Container;
 use Xeeeveee\Core\WordPress\Prepare\Post;
 use Xeeeveee\Core\WordPress\Prepare\Term;
 use Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator;
 
-require_once( __DIR__ . DIRECTORY_SEPARATOR . 'Autoloader.php' );
+class Core extends Singleton {
 
-add_action( 'plugins_loaded', function () {
-	$container = Container::get_instance();
-	$container->add( 'Xeeeveee\Core\WordPress\Prepare\Post', Post::get_instance() );
-	$container->add( 'Xeeeveee\Core\WordPress\Prepare\Term', Term::get_instance() );
-	$container->add( 'Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator', PostDecorator::get_instance() );
-});
+	use ConfigurationTrait;
 
+	/**
+	 * Registers appropriate actions with WordPress
+	 */
+	protected function __construct() {
+		add_action( 'plugins_loaded', [ $this, 'boot' ] );
+	}
+
+	/**
+	 * Initialize required classes and add them to the container
+	 *
+	 * @throws Exceptions\ContainerOverrideException
+	 * @throws Exceptions\NotStringException
+	 */
+	public function boot() {
+		$container = Container::get_instance();
+
+		if ( apply_filters( $this->filter_base . 'core/register/prepare/post', true ) ) {
+			$container->add( 'Xeeeveee\Core\WordPress\Prepare\Post', Post::get_instance() );
+		}
+
+		if ( apply_filters( $this->filter_base . 'core/register/prepare/post', true ) ) {
+			$container->add( 'Xeeeveee\Core\WordPress\Prepare\Term', Term::get_instance() );
+		}
+
+		if ( apply_filters( $this->filter_base . 'core/register/prepare/post', true ) ) {
+			$container->add( 'Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator', PostDecorator::get_instance() );
+		}
+	}
+}

@@ -23,7 +23,7 @@ class Term extends Singleton implements TermInterface {
 	protected function __construct() {
 		$this->cache = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'terms' );
 
-		if( ! is_admin() ) {
+		if ( ! is_admin() ) {
 			add_filter( 'get_terms', [ $this, 'prepare_collection' ] );
 		}
 	}
@@ -106,7 +106,7 @@ class Term extends Singleton implements TermInterface {
 			}
 		}
 
-		if ( $cache && ! is_admin() ) {
+		if ( $cache && ! is_admin() && ! empty( $prepared_terms ) ) {
 			$this->cache->add( $this->get_cache_key( $terms ), $prepared_terms );
 		}
 

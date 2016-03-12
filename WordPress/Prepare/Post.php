@@ -69,7 +69,7 @@ class Post extends Singleton implements PostInterface {
 			}
 		}
 
-		if ( $cache && ! is_admin() ) {
+		if ( $cache && ! is_admin() && ! empty( $prepared_posts ) ) {
 			$this->cache->add( $this->get_cache_key( $posts ), $prepared_posts );
 		}
 

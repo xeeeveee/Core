@@ -2,12 +2,15 @@
 
 namespace Xeeeveee\Core\Forms;
 
+use Soap\Provenue\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Exceptions\ElementNotFoundException;
 use Xeeeveee\Core\Exceptions\NotStringException;
 use Xeeeveee\Core\Forms\Elements\Nonce;
 use Xeeeveee\Core\Utility\Tag;
 
 class Form extends Tag implements FormInterface {
+
+	use ConfigurationTrait;
 
 	/**
 	 * The name of the form
@@ -96,27 +99,39 @@ class Form extends Tag implements FormInterface {
 		}
 
 		if ( isset( $args['elements'] ) ) {
-			$this->set_elements( $args['elements'] );
+			$elements = apply_filters( $this->filter_base . 'Core/Form/Global/Elements', $args['elements'] );
+			$elements = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Elements', $elements );
+			$this->set_elements( $elements );
 		}
 
 		if ( isset( $args['attributes'] ) ) {
-			$this->set_attributes( $args['attributes'] );
+			$attributes = apply_filters( $this->filter_base . 'Core/Form/Global/Attributes', $args['elements'] );
+			$attributes = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Attributes', $attributes );
+			$this->set_attributes( $attributes );
 		}
 
 		if ( isset( $args['wrappers'] ) ) {
-			$this->set_wrappers( $args['wrappers'] );
+			$wrappers = apply_filters( $this->filter_base . 'Core/Form/Global/Wrappers', $args['elements'] );
+			$wrappers = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Wrappers', $wrappers );
+			$this->set_wrappers( $wrappers );
 		}
 
 		if ( isset( $args['method'] ) ) {
-			$this->set_method( $args['method'] );
+			$method = apply_filters( $this->filter_base . 'Core/Form/Global/Method', $args['elements'] );
+			$method = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Method', $method );
+			$this->set_method( $method );
 		}
 
 		if ( isset( $args['action'] ) ) {
-			$this->set_action( $args['action'] );
+			$action = apply_filters( $this->filter_base . 'Core/Form/Global/Action', $args['elements'] );
+			$action = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Action', $action );
+			$this->set_action( $action );
 		}
 
 		if ( isset( $args['values'] ) ) {
-			$this->set_values( $args['values'] );
+			$values = apply_filters( $this->filter_base . 'Core/Form/Global/Values', $args['elements'] );
+			$values = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Values', $values );
+			$this->set_values( $values );
 		}
 
 		$this->nonce = new Nonce( $this->name );

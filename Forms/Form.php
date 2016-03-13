@@ -79,7 +79,8 @@ class Form extends Tag implements FormInterface {
 	protected $protected_element_types = array(
 		'submit',
 		'button',
-		'html'
+		'html',
+		'nonce'
 	);
 
 	/**
@@ -218,8 +219,8 @@ class Form extends Tag implements FormInterface {
 	 */
 	public function set_values( array $values = [ ] ) {
 		foreach ( $this->elements as $element ) {
-			if ( ! in_array( $element->getType(),
-					$this->protected_element_types ) && isset( $values[ $element->getName() ] )
+			if ( ! in_array( $element->getType(), $this->protected_element_types )
+			     && isset( $values[ $element->getName() ] )
 			) {
 				$element->setValue( $values[ $element->getName() ] );
 			} else {

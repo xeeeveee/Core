@@ -2,6 +2,7 @@
 
 namespace Xeeeveee\Core\Forms\Elements;
 
+use Xeeeveee\Core\Exceptions\NotStringException;
 use Xeeeveee\Core\Utility\Tag;
 
 abstract class Element extends Tag implements ElementInterface {
@@ -147,10 +148,13 @@ abstract class Element extends Tag implements ElementInterface {
 	 * @param string $name
 	 *
 	 * @return $this
+	 * @throws NotStringException
 	 */
 	public function set_name( $name ) {
 		if ( is_string( $name ) ) {
 			$this->name = $name;
+		} else {
+			throw new NotStringException( 'The parameter $name must be of type string, ' . gettype( $name ) . ' given.' );
 		}
 
 		return $this;

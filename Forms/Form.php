@@ -4,6 +4,7 @@ namespace Xeeeveee\Core\Forms;
 
 use Xeeeveee\Core\Exceptions\ElementNotFoundException;
 use Xeeeveee\Core\Exceptions\NotStringException;
+use Xeeeveee\Core\Forms\Elements\Nonce;
 use Xeeeveee\Core\Utility\Tag;
 
 class Form extends Tag implements FormInterface {
@@ -35,6 +36,13 @@ class Form extends Tag implements FormInterface {
 	 * @var string
 	 */
 	protected $action = '';
+
+	/**
+	 * The nonce field for the form
+	 *
+	 * @var Nonce
+	 */
+	protected $nonce;
 
 	/**
 	 * Reserved attributes
@@ -110,6 +118,8 @@ class Form extends Tag implements FormInterface {
 		if ( isset( $args['values'] ) ) {
 			$this->set_values( $args['values'] );
 		}
+
+		$this->nonce = new Nonce( $this->name );
 	}
 
 	/**
@@ -472,6 +482,9 @@ class Form extends Tag implements FormInterface {
 	 * @return string
 	 */
 	public function get_form_closing_html() {
-		return '</form>';
+		$html = $this->nonce->get_html();
+		$html .= '</form>';
+
+		return $html;
 	}
 }

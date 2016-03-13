@@ -3,9 +3,17 @@
 namespace Xeeeveee\Core\Forms;
 
 use Xeeeveee\Core\Exceptions\ElementNotFoundException;
+use Xeeeveee\Core\Exceptions\NotStringException;
 use Xeeeveee\Core\Utility\Tag;
 
 class Form extends Tag implements FormInterface {
+
+	/**
+	 * The name of the form
+	 *
+	 * @var string
+	 */
+	protected $name = '';
 
 	/**
 	 * The elements attached to this form
@@ -66,9 +74,19 @@ class Form extends Tag implements FormInterface {
 	/**
 	 * Prepares a new form
 	 *
+	 * @param $name
 	 * @param array $args
+	 *
+	 * @throws NotStringException
 	 */
-	public function __construct( $args ) {
+	public function __construct( $name, array $args = [ ] ) {
+
+		if ( is_string( $name ) ) {
+			$this->name = $name;
+		} else {
+			throw new NotStringException( 'The parameter $name must be of type string, ' . gettype( $name ) . ' given.' );
+		}
+
 		if ( isset( $args['elements'] ) ) {
 			$this->set_elements( $args['elements'] );
 		}

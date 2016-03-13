@@ -98,41 +98,53 @@ class Form extends Tag implements FormInterface {
 		$args = apply_filters( $this->filter_base . 'Core/Form/Global/Args', $args['elements'], $this->name, $this );
 		$args = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Args', $args, $this->name, $this );
 
-		if ( isset( $args['elements'] ) ) {
-			$elements = apply_filters( $this->filter_base . 'Core/Form/Global/Elements', $args['elements'], $this->name, $this );
-			$elements = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Elements', $elements, $this->name, $this );
-			$this->set_elements( $elements );
+		if ( ! isset( $args['elements'] ) ) {
+			$args['elements'] = [ ];
 		}
 
-		if ( isset( $args['attributes'] ) ) {
-			$attributes = apply_filters( $this->filter_base . 'Core/Form/Global/Attributes', $args['elements'], $this->name, $this );
-			$attributes = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Attributes', $attributes, $this->name, $this );
-			$this->set_attributes( $attributes );
+		if ( ! isset( $args['attributes'] ) ) {
+			$args['attributes'] = [ ];
 		}
 
-		if ( isset( $args['wrappers'] ) ) {
-			$wrappers = apply_filters( $this->filter_base . 'Core/Form/Global/Wrappers', $args['elements'], $this->name, $this );
-			$wrappers = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Wrappers', $wrappers, $this->name, $this );
-			$this->set_wrappers( $wrappers );
+		if ( ! isset( $args['wrappers'] ) ) {
+			$args['wrappers'] = [ ];
 		}
 
-		if ( isset( $args['method'] ) ) {
-			$method = apply_filters( $this->filter_base . 'Core/Form/Global/Method', $args['elements'], $this->name, $this );
-			$method = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Method', $method, $this->name, $this );
-			$this->set_method( $method );
+		if ( ! isset( $args['method'] ) ) {
+			$args['method'] = '';
 		}
 
-		if ( isset( $args['action'] ) ) {
-			$action = apply_filters( $this->filter_base . 'Core/Form/Global/Action', $args['elements'], $this->name, $this );
-			$action = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Action', $action, $this->name, $this );
-			$this->set_action( $action );
+		if ( ! isset( $args['action'] ) ) {
+			$args['action'] = '';
 		}
 
-		if ( isset( $args['values'] ) ) {
-			$values = apply_filters( $this->filter_base . 'Core/Form/Global/Values', $args['elements'], $this->name, $this );
-			$values = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Values', $values, $this->name, $this );
-			$this->set_values( $values );
+		if ( ! isset( $args['values'] ) ) {
+			$args['values'] = [ ];
 		}
+
+		$elements = apply_filters( $this->filter_base . 'Core/Form/Global/Elements', $args['elements'], $this->name, $this );
+		$elements = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Elements', $elements, $this->name, $this );
+		$this->set_elements( $elements );
+
+		$attributes = apply_filters( $this->filter_base . 'Core/Form/Global/Attributes', $args['elements'], $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Attributes', $attributes, $this->name, $this );
+		$this->set_attributes( $attributes );
+
+		$wrappers = apply_filters( $this->filter_base . 'Core/Form/Global/Wrappers', $args['elements'], $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Wrappers', $wrappers, $this->name, $this );
+		$this->set_wrappers( $wrappers );
+
+		$method = apply_filters( $this->filter_base . 'Core/Form/Global/Method', $args['elements'], $this->name, $this );
+		$method = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Method', $method, $this->name, $this );
+		$this->set_method( $method );
+
+		$action = apply_filters( $this->filter_base . 'Core/Form/Global/Action', $args['elements'], $this->name, $this );
+		$action = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Action', $action, $this->name, $this );
+		$this->set_action( $action );
+
+		$values = apply_filters( $this->filter_base . 'Core/Form/Global/Values', $args['elements'], $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Values', $values, $this->name, $this );
+		$this->set_values( $values );
 
 		$this->nonce = new Nonce( $this->name );
 	}

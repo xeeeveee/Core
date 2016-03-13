@@ -476,6 +476,35 @@ class Form extends Tag implements FormInterface {
 	}
 
 	/**
+	 * Get the nonce field
+	 *
+	 * @return Nonce
+	 */
+	public function get_nonce_field() {
+		return $this->nonce;
+	}
+
+	/**
+	 * Get the nonce field's action
+	 *
+	 * @return string
+	 */
+	public function get_nonce_action() {
+		return $this->nonce->get_name();
+	}
+
+	/**
+	 * Get the nonce fields name
+	 *
+	 * TODO: Ideally want to get this from the field, but the naming doesn't conform nicely
+	 *
+	 * @return string
+	 */
+	public function get_nonce_name() {
+		return $this->nonce->get_name() . '_' . $this->nonce->get_type();
+	}
+
+	/**
 	 * Gets the html to render the form
 	 *
 	 * @return string

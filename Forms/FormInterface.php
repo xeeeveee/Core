@@ -50,6 +50,12 @@ interface FormInterface {
 
 	public function get_wrappers();
 
+	public function get_nonce_field();
+
+	public function get_nonce_action();
+
+	public function get_nonce_name();
+
 	public function get_html();
 
 	public function get_elements_html();

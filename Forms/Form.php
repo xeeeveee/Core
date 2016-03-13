@@ -95,39 +95,42 @@ class Form extends Tag implements FormInterface {
 
 		$this->set_name( $name );
 
+		$args = apply_filters( $this->filter_base . 'Core/Form/Global/Args', $args['elements'], $this->name, $this );
+		$args = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Args', $args, $this->name, $this );
+
 		if ( isset( $args['elements'] ) ) {
-			$elements = apply_filters( $this->filter_base . 'Core/Form/Global/Elements', $args['elements'] );
-			$elements = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Elements', $elements );
+			$elements = apply_filters( $this->filter_base . 'Core/Form/Global/Elements', $args['elements'], $this->name, $this );
+			$elements = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Elements', $elements, $this->name, $this );
 			$this->set_elements( $elements );
 		}
 
 		if ( isset( $args['attributes'] ) ) {
-			$attributes = apply_filters( $this->filter_base . 'Core/Form/Global/Attributes', $args['elements'] );
-			$attributes = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Attributes', $attributes );
+			$attributes = apply_filters( $this->filter_base . 'Core/Form/Global/Attributes', $args['elements'], $this->name, $this );
+			$attributes = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Attributes', $attributes, $this->name, $this );
 			$this->set_attributes( $attributes );
 		}
 
 		if ( isset( $args['wrappers'] ) ) {
-			$wrappers = apply_filters( $this->filter_base . 'Core/Form/Global/Wrappers', $args['elements'] );
-			$wrappers = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Wrappers', $wrappers );
+			$wrappers = apply_filters( $this->filter_base . 'Core/Form/Global/Wrappers', $args['elements'], $this->name, $this );
+			$wrappers = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Wrappers', $wrappers, $this->name, $this );
 			$this->set_wrappers( $wrappers );
 		}
 
 		if ( isset( $args['method'] ) ) {
-			$method = apply_filters( $this->filter_base . 'Core/Form/Global/Method', $args['elements'] );
-			$method = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Method', $method );
+			$method = apply_filters( $this->filter_base . 'Core/Form/Global/Method', $args['elements'], $this->name, $this );
+			$method = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Method', $method, $this->name, $this );
 			$this->set_method( $method );
 		}
 
 		if ( isset( $args['action'] ) ) {
-			$action = apply_filters( $this->filter_base . 'Core/Form/Global/Action', $args['elements'] );
-			$action = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Action', $action );
+			$action = apply_filters( $this->filter_base . 'Core/Form/Global/Action', $args['elements'], $this->name, $this );
+			$action = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Action', $action, $this->name, $this );
 			$this->set_action( $action );
 		}
 
 		if ( isset( $args['values'] ) ) {
-			$values = apply_filters( $this->filter_base . 'Core/Form/Global/Values', $args['elements'] );
-			$values = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Values', $values );
+			$values = apply_filters( $this->filter_base . 'Core/Form/Global/Values', $args['elements'], $this->name, $this );
+			$values = apply_filters( $this->filter_base . 'Core/Form/' . $this->name . '/Values', $values, $this->name, $this );
 			$this->set_values( $values );
 		}
 

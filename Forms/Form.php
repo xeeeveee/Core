@@ -93,11 +93,7 @@ class Form extends Tag implements FormInterface {
 	 */
 	public function __construct( $name, array $args = [ ] ) {
 
-		if ( is_string( $name ) ) {
-			$this->name = $name;
-		} else {
-			throw new NotStringException( 'The parameter $name must be of type string, ' . gettype( $name ) . ' given.' );
-		}
+		$this->set_name( $name );
 
 		if ( isset( $args['elements'] ) ) {
 			$elements = apply_filters( $this->filter_base . 'Core/Form/Global/Elements', $args['elements'] );
@@ -136,6 +132,33 @@ class Form extends Tag implements FormInterface {
 		}
 
 		$this->nonce = new Nonce( $this->name );
+	}
+
+	/**
+	 * Sets the name
+	 *
+	 * @param string $name
+	 *
+	 * @return $this
+	 * @throws NotStringException
+	 */
+	public function set_name( $name ) {
+		if ( is_string( $name ) ) {
+			$this->name = $name;
+		} else {
+			throw new NotStringException( 'The parameter $name must be of type string, ' . gettype( $name ) . ' given.' );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get the name
+	 *
+	 * @return string
+	 */
+	public function get_name() {
+		return $name;
 	}
 
 	/**

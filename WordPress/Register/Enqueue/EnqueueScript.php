@@ -2,7 +2,7 @@
 
 namespace Xeeeveee\Core\WordPress\Register\Enqueue;
 
-class EnqueueScript extends Enqueue {
+abstract class EnqueueScript extends Enqueue {
 
 	/**
 	 * @var bool

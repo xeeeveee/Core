@@ -2,7 +2,7 @@
 
 namespace Xeeeveee\Core\WordPress\Register\Enqueue;
 
-class EnqueueStyle extends Enqueue {
+abstract class EnqueueStyle extends Enqueue {
 
 	/**
 	 * @var string

@@ -140,34 +140,34 @@ abstract class Element extends Tag implements ElementInterface {
 			$args['wrappers'] = [ ];
 		}
 
-		$attributes = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Attributes', $args['attributes'], $this->name, $this );
-		$attributes = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Attributes', $attributes, $this->name, $this );
-		$attributes = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Attributes', $attributes, $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'element/global/global/attributes', $args['attributes'], $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/attributes', $attributes, $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/attributes', $attributes, $this->name, $this );
 		$this->set_attributes( $attributes ); // TODO: Throw exception if type is wrong
 
-		$label = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Label', $args['label'], $this->name, $this );
-		$label = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Label', $label, $this->name, $this );
-		$label = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Label', $label, $this->name, $this );
+		$label = apply_filters( $this->filter_base . 'element/global/global/label', $args['label'], $this->name, $this );
+		$label = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/label', $label, $this->name, $this );
+		$label = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/label', $label, $this->name, $this );
 		$this->set_label( $label ); // TODO: Throw exception if type is wrong
 
-		$values = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Value', $args['value'], $this->name, $this );
-		$values = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Value', $values, $this->name, $this );
-		$values = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Value', $values, $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'element/global/global/value', $args['value'], $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/value', $values, $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/value', $values, $this->name, $this );
 		$this->set_value( $values ); // TODO: Throw exception if type is wrong
 
-		$options = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Options', $args['options'], $this->name, $this );
-		$options = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Options', $options, $this->name, $this );
-		$options = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Options', $options, $this->name, $this );
+		$options = apply_filters( $this->filter_base . 'element/global/global/options', $args['options'], $this->name, $this );
+		$options = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/options', $options, $this->name, $this );
+		$options = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/options', $options, $this->name, $this );
 		$this->set_options( $options ); // TODO: Throw exception if type is wrong
 
-		$tooltip = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Tooltip', $args['tooltip'], $this->name, $this );
-		$tooltip = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Tooltip', $tooltip, $this->name, $this );
-		$tooltip = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Tooltip', $tooltip, $this->name, $this );
+		$tooltip = apply_filters( $this->filter_base . 'element/global/global/tooltip', $args['tooltip'], $this->name, $this );
+		$tooltip = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/tooltip', $tooltip, $this->name, $this );
+		$tooltip = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/tooltip', $tooltip, $this->name, $this );
 		$this->set_tooltip( $tooltip ); // TODO: Throw exception if type is wrong
 
-		$wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Wrappers', $args['wrappers'], $this->name, $this );
-		$wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Wrappers', $wrappers, $this->name, $this );
-		$wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Wrappers', $wrappers, $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'element/global/global/wrappers', $args['wrappers'], $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/wrappers', $wrappers, $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/wrappers', $wrappers, $this->name, $this );
 
 		if ( is_array( $wrappers ) ) {
 
@@ -176,9 +176,9 @@ abstract class Element extends Tag implements ElementInterface {
 				$wrappers['block'] = [ ];
 			}
 
-			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/BlockWrappers', $wrappers['block'], $this->name, $this );
-			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/BlockWrappers', $block_wrappers, $this->name, $this );
-			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/BlockWrappers', $block_wrappers, $this->name, $this );
+			$block_wrappers = apply_filters( $this->filter_base . 'element/global/global/block_wrappers', $wrappers['block'], $this->name, $this );
+			$block_wrappers = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/block_wrappers', $block_wrappers, $this->name, $this );
+			$block_wrappers = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/block_wrappers', $block_wrappers, $this->name, $this );
 			$this->set_block_wrappers( $block_wrappers );
 
 			// TODO: Throw exception if type is wrong
@@ -186,9 +186,9 @@ abstract class Element extends Tag implements ElementInterface {
 				$wrappers['element'] = [ ];
 			}
 
-			$element_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/ElementWrappers', $wrappers['element'], $this->name, $this );
-			$element_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/ElementWrappers', $element_wrappers, $this->name, $this );
-			$element_wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/ElementWrappers', $element_wrappers, $this->name, $this );
+			$element_wrappers = apply_filters( $this->filter_base . 'element/global/global/element_wrappers', $wrappers['element'], $this->name, $this );
+			$element_wrappers = apply_filters( $this->filter_base . 'element/global/' . $this->type . '/element_wrappers', $element_wrappers, $this->name, $this );
+			$element_wrappers = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/element_wrappers', $element_wrappers, $this->name, $this );
 			$this->set_element_wrappers( $element_wrappers );
 		}
 	}

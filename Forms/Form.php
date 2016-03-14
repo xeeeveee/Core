@@ -2,7 +2,7 @@
 
 namespace Xeeeveee\Core\Forms;
 
-use Soap\Provenue\Configuration\ConfigurationTrait;
+use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Exceptions\ElementNotFoundException;
 use Xeeeveee\Core\Exceptions\NotStringException;
 use Xeeeveee\Core\Forms\Elements\Nonce;

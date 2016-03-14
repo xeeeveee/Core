@@ -1,0 +1,17 @@
+{
+    "name": "Core",
+    "description": "Core WordPress plugin",
+    "author": "Jack Neary",
+    "readme": "",
+    "version": "1.0.0",
+    "license": "MIT",
+    "devDependencies": {
+        "gulp": "^3.9.*",
+        "gulp-uglify": "^1.5.*",
+        "gulp-concat": "^2.6.*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@bitbucket.org:krgroupsites/blank-project.git"
+    }
+}

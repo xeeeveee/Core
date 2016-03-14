@@ -17,11 +17,11 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	protected $handle = '';
 
 	/**
-	 * @var string
+	 * @var string|boolean
 	 *
 	 * The source of the file to enqueue
 	 */
-	protected $source = '';
+	protected $source = false;
 
 	/**
 	 * @var bool
@@ -93,6 +93,7 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 
 	/**
 	 * Should be implemented to register the asset appropriately
+	 *
 	 * @return mixed
 	 */
 	abstract public function enqueue();
@@ -104,5 +105,7 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	 *
 	 * @return string
 	 */
-	abstract protected function setSource();
+	protected function setSource() {
+
+	}
 }

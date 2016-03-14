@@ -17,6 +17,13 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	protected $handle = '';
 
 	/**
+	 * @var string
+	 *
+	 * The resource (Filename) to enqueue
+	 */
+	protected $resource = '';
+
+	/**
 	 * @var string|boolean
 	 *
 	 * The source of the file to enqueue
@@ -77,18 +84,20 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	 */
 	public function __construct() {
 
-		$this->assets_url  = trailingslashit( plugins_url() ) . 'Assets/';
-		$this->scripts_url = $this->assets_url . 'Scripts/';
-		$this->styles_url  = $this->assets_url . 'Styles/';
-		$this->setSource();
-
 		if ( $this->frontend ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ] );
+			$this->location = 'Frontend/';
 		}
 
 		if ( $this->admin ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue' ] );
+			$this->location = 'Admin/';
 		}
+
+		$this->assets_url  = trailingslashit( plugins_url() ) . 'Core/Assets/';
+		$this->scripts_url = $this->assets_url . 'Scripts/';
+		$this->styles_url  = $this->assets_url . 'Styles/';
+		$this->setSource();
 	}
 
 	/**
@@ -99,13 +108,9 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	abstract public function enqueue();
 
 	/**
-	 * Sets the source
+	 * Should be implemented to set the source of the asset appropriately
 	 *
-	 * Allows the source to be computed by overriding this method
-	 *
-	 * @return string
+	 * @return mixed
 	 */
-	protected function setSource() {
-
-	}
+	abstract protected function setSource();
 }

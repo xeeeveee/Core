@@ -194,7 +194,7 @@ class Form extends Tag implements FormInterface {
 	 * @return string
 	 */
 	public function get_name() {
-		return $name;
+		return $this->name;
 	}
 
 	/**

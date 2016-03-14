@@ -2,10 +2,13 @@
 
 namespace Xeeeveee\Core\Forms\Elements;
 
+use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Exceptions\NotStringException;
 use Xeeeveee\Core\Utility\Tag;
 
 abstract class Element extends Tag implements ElementInterface {
+
+	use ConfigurationTrait
 
 	/**
 	 * The name of the element
@@ -108,37 +111,82 @@ abstract class Element extends Tag implements ElementInterface {
 
 		$this->set_name( $name );
 
-		if ( isset( $args['attributes'] ) ) {
-			$this->set_attributes( $args['attributes'] );
-		} else {
-			$this->set_attributes( [ ] );
+		if ( ! isset( $args['attributes'] ) ) {
+			$args['attributes'] = [ ];
 		}
 
-		if ( isset( $args['label'] ) ) {
-			$this->set_label( $args['label'] );
+		if ( ! isset( $args['label'] ) ) {
+			$args['label'] = '';
 		}
 
-		if ( isset( $args['value'] ) ) {
-			$this->set_value( $args['value'] );
+		if ( ! isset( $args['value'] ) ) {
+			$args['value'] = [ ];
 		}
 
-		if ( isset( $args['options'] ) && is_array( $args['options'] ) ) {
-			$this->set_options( $args['options'] );
+		if ( ! isset( $args['options'] ) ) {
+			$args['options'] = [ ];
 		}
 
-		if ( isset( $args['tooltip'] ) ) {
-			$this->set_tooltip( $args['tooltip'] );
-			if ( isset( $args['tooltip-location'] ) ) {
-				$this->set_tooltip_location( $args['tooltip-location'] );
+		if ( ! isset( $args['tooltip'] ) ) {
+			$args['tooltip'] = '';
+		}
+
+		if ( ! isset( $args['tooltip-location'] ) ) {
+			$args['tooltip-location'] = '';
+		}
+
+		if ( ! isset( $args['wrappers'] ) || ! is_array( $args['wrappers'] ) ) {
+			$args['wrappers'] = [ ];
+		}
+
+		$attributes = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Attributes', $args['attributes'], $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Attributes', $attributes, $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Attributes', $attributes, $this->name, $this );
+		$this->set_attributes( $attributes );
+
+		$label = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Label', $args['label'], $this->name, $this );
+		$label = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Label', $label, $this->name, $this );
+		$label = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Label', $label, $this->name, $this );
+		$this->set_label( $label );
+
+		$values = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Value', $args['value'], $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Value', $values, $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Value', $values, $this->name, $this );
+		$this->set_value( $values );
+
+		$options = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Options', $args['options'], $this->name, $this );
+		$options = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Options', $options, $this->name, $this );
+		$options = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Options', $options, $this->name, $this );
+		$this->set_options( $options );
+
+		$tooltip = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Tooltip', $args['tooltip'], $this->name, $this );
+		$tooltip = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Tooltip', $tooltip, $this->name, $this );
+		$tooltip = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Tooltip', $tooltip, $this->name, $this );
+		$this->set_tooltip( $tooltip );
+
+		$wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Wrappers', $args['wrappers'], $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Wrappers', $wrappers, $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Wrappers', $wrappers, $this->name, $this );
+
+		if ( is_array( $wrappers ) ) {
+
+			if ( ! isset( $wrappers['block'] ) || ! is_array( $wrappers['block'] ) ) {
+				$wrappers['block'] = [ ];
 			}
-		}
 
-		if ( isset( $args['wrappers']['block'] ) && is_array( $args['wrappers']['block'] ) ) {
-			$this->set_block_wrappers( $args['wrappers']['block'] );
-		}
+			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/BlockWrappers', $wrappers['block'], $this->name, $this );
+			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/BlockWrappers', $block_wrappers, $this->name, $this );
+			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/BlockWrappers', $block_wrappers, $this->name, $this );
+			$this->set_block_wrappers( $block_wrappers );
 
-		if ( isset( $args['wrappers']['element'] ) && is_array( $args['wrappers']['element'] ) ) {
-			$this->set_element_wrappers( $args['wrappers']['element'] );
+			if ( ! isset( $wrappers['element'] ) || ! is_array( $wrappers['element'] ) ) {
+				$wrappers['element'] = [ ];
+			}
+
+			$element_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/ElementWrappers', $wrappers['element'], $this->name, $this );
+			$element_wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/ElementWrappers', $element_wrappers, $this->name, $this );
+			$element_wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/ElementWrappers', $element_wrappers, $this->name, $this );
+			$this->set_element_wrappers( $element_wrappers );
 		}
 	}
 

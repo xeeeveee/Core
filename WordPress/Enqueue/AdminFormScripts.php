@@ -9,7 +9,12 @@ class AdminFormScripts extends EnqueueScript {
 	/**
 	 * @inherit
 	 */
-	protected $handle = 'admin_forms';
+	protected $handle = 'admin_main';
+
+	/**
+	 * @inherit
+	 */
+	protected $resource = 'main.min.js';
 
 	/**
 	 * @inherit
@@ -20,11 +25,4 @@ class AdminFormScripts extends EnqueueScript {
 	 * @inherit
 	 */
 	protected $admin = true;
-
-	/**
-	 * @inherit
-	 */
-	protected function setSource() {
-		$this->source = $this->scripts_url . 'AdminForms.min.js';
-	}
 }

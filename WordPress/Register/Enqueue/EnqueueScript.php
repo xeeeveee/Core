@@ -15,7 +15,7 @@ abstract class EnqueueScript extends Enqueue {
 	 * Enqueues the style
 	 */
 	public function enqueue() {
-		if ( ! empty( $this->handle ) && ! empty( $this->source ) ) {
+		if ( ! empty( $this->handle ) && ( $this->source === false || ! empty( $this->source ) ) ) {
 			wp_enqueue_script( $this->prefix . $this->handle, $this->source, $this->dependencies, $this->version, $this->footer );
 		}
 	}

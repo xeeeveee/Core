@@ -135,6 +135,7 @@ abstract class Element extends Tag implements ElementInterface {
 			$args['tooltip-location'] = '';
 		}
 
+		// TODO: Throw exception if type is wrong
 		if ( ! isset( $args['wrappers'] ) || ! is_array( $args['wrappers'] ) ) {
 			$args['wrappers'] = [ ];
 		}
@@ -142,27 +143,27 @@ abstract class Element extends Tag implements ElementInterface {
 		$attributes = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Attributes', $args['attributes'], $this->name, $this );
 		$attributes = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Attributes', $attributes, $this->name, $this );
 		$attributes = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Attributes', $attributes, $this->name, $this );
-		$this->set_attributes( $attributes );
+		$this->set_attributes( $attributes ); // TODO: Throw exception if type is wrong
 
 		$label = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Label', $args['label'], $this->name, $this );
 		$label = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Label', $label, $this->name, $this );
 		$label = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Label', $label, $this->name, $this );
-		$this->set_label( $label );
+		$this->set_label( $label ); // TODO: Throw exception if type is wrong
 
 		$values = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Value', $args['value'], $this->name, $this );
 		$values = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Value', $values, $this->name, $this );
 		$values = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Value', $values, $this->name, $this );
-		$this->set_value( $values );
+		$this->set_value( $values ); // TODO: Throw exception if type is wrong
 
 		$options = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Options', $args['options'], $this->name, $this );
 		$options = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Options', $options, $this->name, $this );
 		$options = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Options', $options, $this->name, $this );
-		$this->set_options( $options );
+		$this->set_options( $options ); // TODO: Throw exception if type is wrong
 
 		$tooltip = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Tooltip', $args['tooltip'], $this->name, $this );
 		$tooltip = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Tooltip', $tooltip, $this->name, $this );
 		$tooltip = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/Tooltip', $tooltip, $this->name, $this );
-		$this->set_tooltip( $tooltip );
+		$this->set_tooltip( $tooltip ); // TODO: Throw exception if type is wrong
 
 		$wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/Global/Wrappers', $args['wrappers'], $this->name, $this );
 		$wrappers = apply_filters( $this->filter_base . 'Core/Element/Global/' . $this->type . '/Wrappers', $wrappers, $this->name, $this );
@@ -170,6 +171,7 @@ abstract class Element extends Tag implements ElementInterface {
 
 		if ( is_array( $wrappers ) ) {
 
+			// TODO: Throw exception if type is wrong
 			if ( ! isset( $wrappers['block'] ) || ! is_array( $wrappers['block'] ) ) {
 				$wrappers['block'] = [ ];
 			}
@@ -179,6 +181,7 @@ abstract class Element extends Tag implements ElementInterface {
 			$block_wrappers = apply_filters( $this->filter_base . 'Core/Element/' . $this->type . '/' . $this->name . '/BlockWrappers', $block_wrappers, $this->name, $this );
 			$this->set_block_wrappers( $block_wrappers );
 
+			// TODO: Throw exception if type is wrong
 			if ( ! isset( $wrappers['element'] ) || ! is_array( $wrappers['element'] ) ) {
 				$wrappers['element'] = [ ];
 			}

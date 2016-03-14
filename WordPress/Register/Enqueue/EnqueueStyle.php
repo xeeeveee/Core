@@ -19,4 +19,15 @@ abstract class EnqueueStyle extends Enqueue {
 			wp_enqueue_style( $this->prefix . $this->handle, $this->source, $this->dependencies, $this->version, $this->media );
 		}
 	}
+
+	/**
+	 * Set the source of the resource
+	 *
+	 * @return $this
+	 */
+	protected function setSource() {
+		$this->source = $this->styles_url . $this->location . $this->resource;
+
+		return $this;
+	}
 }

@@ -19,4 +19,15 @@ abstract class EnqueueScript extends Enqueue {
 			wp_enqueue_script( $this->prefix . $this->handle, $this->source, $this->dependencies, $this->version, $this->footer );
 		}
 	}
+
+	/**
+	 * Set the source of the resource
+	 *
+	 * @return $this
+	 */
+	protected function setSource() {
+		$this->source = $this->scripts_url . $this->location . $this->resource;
+
+		return $this;
+	}
 }

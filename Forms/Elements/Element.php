@@ -111,6 +111,13 @@ abstract class Element extends Tag implements ElementInterface {
 
 		$this->set_name( $name );
 
+		/*
+		 * Format: <base>/element/<type>/<name>/args
+		 */
+		$args = apply_filters( $this->filter_base . 'element/global/global/args', $args, $this->name, $this );
+		$args = apply_filters( $this->filter_base . 'element/' . $this->type . ' .global/args', $args, $this->name, $this );
+		$args = apply_filters( $this->filter_base . 'element/' . $this->type . '/' . $this->name . '/args', $args, $this->name, $this );
+
 		if ( ! isset( $args['attributes'] ) ) {
 			$args['attributes'] = [ ];
 		}

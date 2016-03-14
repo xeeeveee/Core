@@ -135,35 +135,35 @@ class Form extends Tag implements FormInterface {
 		/*
 		 * Format: <base>/form/<name>/attributes
 		 */
-		$attributes = apply_filters( $this->filter_base . 'form/global/attributes', $args['elements'], $this->name, $this );
+		$attributes = apply_filters( $this->filter_base . 'form/global/attributes', $args['attributes'], $this->name, $this );
 		$attributes = apply_filters( $this->filter_base . 'form/' . $this->name . '/attributes', $attributes, $this->name, $this );
 		$this->set_attributes( $attributes );
 
 		/*
 		 * Format: <base>/form/<name>/wrappers
 		 */
-		$wrappers = apply_filters( $this->filter_base . 'form/global/wrappers', $args['elements'], $this->name, $this );
+		$wrappers = apply_filters( $this->filter_base . 'form/global/wrappers', $args['wrappers'], $this->name, $this );
 		$wrappers = apply_filters( $this->filter_base . 'form/' . $this->name . '/wrappers', $wrappers, $this->name, $this );
 		$this->set_wrappers( $wrappers );
 
 		/*
 		 * Format: <base>/form/<name>/method
 		 */
-		$method = apply_filters( $this->filter_base . 'form/global/method', $args['elements'], $this->name, $this );
+		$method = apply_filters( $this->filter_base . 'form/global/method', $args['method'], $this->name, $this );
 		$method = apply_filters( $this->filter_base . 'form/' . $this->name . '/method', $method, $this->name, $this );
 		$this->set_method( $method );
 
 		/*
 		 * Format: <base>/form/<name>/action
 		 */
-		$action = apply_filters( $this->filter_base . 'form/global/action', $args['elements'], $this->name, $this );
+		$action = apply_filters( $this->filter_base . 'form/global/action', $args['action'], $this->name, $this );
 		$action = apply_filters( $this->filter_base . 'form/' . $this->name . '/action', $action, $this->name, $this );
 		$this->set_action( $action );
 
 		/*
 		 * Format: <base>/form/<name>/values
 		 */
-		$values = apply_filters( $this->filter_base . 'form/global/values', $args['elements'], $this->name, $this );
+		$values = apply_filters( $this->filter_base . 'form/global/values', $args['values'], $this->name, $this );
 		$values = apply_filters( $this->filter_base . 'form/' . $this->name . '/values', $values, $this->name, $this );
 		$this->set_values( $values );
 

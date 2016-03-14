@@ -5,6 +5,7 @@ namespace Xeeeveee\Core;
 use Xeeeveee\Core\Utility\Singleton;
 use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Container\Container;
+use Xeeeveee\Core\WordPress\Enqueue\AdminFormScripts;
 use Xeeeveee\Core\WordPress\Prepare\Post;
 use Xeeeveee\Core\WordPress\Prepare\Term;
 use Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator;
@@ -39,6 +40,10 @@ class Core extends Singleton {
 
 		if ( apply_filters( $this->filter_base . 'core/register/prepare/post', true ) ) {
 			$container->add( 'Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator', PostDecorator::get_instance() );
+		}
+
+		if ( apply_filters( $this->filter_base . 'core/register/enqueue/admin_form_scripts', true ) ) {
+			$container->add( 'Xeeeveee\Core\WordPress\Enqueue\AdminFormScripts', AdminFormScripts::get_instance() );
 		}
 	}
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Xeeeveee\Core\WordPress\Enqueue;
+namespace Xeeeveee\Core\WordPress\Enqueue\Script;
 
 use Xeeeveee\Core\WordPress\Register\Enqueue\EnqueueScript;
 
-class AdminScripts extends EnqueueScript {
+class AdminMain extends EnqueueScript {
 
 	/**
 	 * @inherit
@@ -30,6 +30,7 @@ class AdminScripts extends EnqueueScript {
 	 * @inherit
 	 */
 	protected $dependencies = [
-		'wp-color-picker'
+		'wp-color-picker',
+		'jquery-ui-datepicker'
 	];
 }

@@ -24,6 +24,10 @@ interface ElementInterface {
 
 	public function set_value( $value );
 
+	public function add_value( $value );
+
+	public function add_values( array $values );
+
 	public function get_value();
 
 	public function clear_value();

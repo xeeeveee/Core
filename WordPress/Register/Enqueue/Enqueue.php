@@ -2,6 +2,7 @@
 
 namespace Xeeeveee\Core\WordPress\Register\Enqueue;
 
+use ReflectionClass;
 use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Utility\Singleton;
 
@@ -94,7 +95,8 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 			$this->location = 'Admin/';
 		}
 
-		$this->assets_url  = trailingslashit( plugins_url() ) . 'Core/Assets/';
+		$base              = $this->get_base_folder();
+		$this->assets_url  = trailingslashit( plugins_url() ) . $base . '/Assets/';
 		$this->scripts_url = $this->assets_url . 'Scripts/';
 		$this->styles_url  = $this->assets_url . 'Styles/';
 		$this->setSource();
@@ -113,4 +115,22 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	 * @return mixed
 	 */
 	abstract protected function setSource();
+
+	/**
+	 * Get the base assets folder
+	 *
+	 * Based on namespace "Package" (Second part)
+	 *
+	 * @return mixed
+	 */
+	protected function get_base_folder() {
+		$reflectionClass = new ReflectionClass( $this );
+		$parts           = explode( '\\', $reflectionClass->name );
+
+		if ( is_array( $parts ) && isset( $parts[1] ) ) {
+			return $parts[1];
+		} else {
+			return $reflectionClass->name;
+		}
+	}
 }

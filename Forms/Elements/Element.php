@@ -198,7 +198,7 @@ abstract class Element extends Tag implements ElementInterface {
 
 			// TODO: Throw exception if type is wrong
 			if ( ! isset( $wrappers['block'] ) || ! is_array( $wrappers['block'] ) ) {
-				$wrappers['block'] = [ ];
+				$wrappers['block'] = $this->block_wrap_classes;
 			}
 
 			/*
@@ -211,7 +211,7 @@ abstract class Element extends Tag implements ElementInterface {
 
 			// TODO: Throw exception if type is wrong
 			if ( ! isset( $wrappers['element'] ) || ! is_array( $wrappers['element'] ) ) {
-				$wrappers['element'] = [ ];
+				$wrappers['element'] = $this->element_wrap_classes;
 			}
 
 			/*

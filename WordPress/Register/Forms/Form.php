@@ -12,6 +12,13 @@ abstract class Form implements FormInterface {
 	protected $form;
 
 	/**
+	 * The name of the form
+	 *
+	 * @var string
+	 */
+	protected $name = '';
+
+	/**
 	 * The form method
 	 *
 	 * @var string
@@ -46,17 +53,27 @@ abstract class Form implements FormInterface {
 	 */
 	public function __construct( array $args = [ ] ) {
 
-		$this->form = new \Xeeeveee\Core\Forms\Form( [ ] );
+		$this->form = new \Xeeeveee\Core\Forms\Form( $this->name, [ ] );
 
-		$this->form->set_action( $this->get_action() );
-		$this->form->set_method( $this->get_method() );
-		$this->form->set_attributes( $this->get_attributes() );
-		$this->form->set_elements( $this->get_elements() );
+		$this->form->set_action( $this->set_action() );
+		$this->form->set_method( $this->set_method() );
+		$this->form->set_attributes( $this->set_attributes() );
+		$this->form->set_elements( $this->set_elements() );
 
 		if ( isset( $args['values'] ) && is_array( $args['values'] ) ) {
 			$this->form->set_values( $args['values'] );
 		}
 
+		return $this;
+	}
+
+	/**
+	 * Get the constructed form
+	 *
+	 * @return \Xeeeveee\Core\Forms\FormInterface
+	 */
+	public function get_form() {
+		return $this->form;
 	}
 
 	/**
@@ -64,7 +81,7 @@ abstract class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	protected function get_action() {
+	protected function set_action() {
 		return $this->action;
 	}
 
@@ -73,7 +90,7 @@ abstract class Form implements FormInterface {
 	 *
 	 * @return string
 	 */
-	protected function get_method() {
+	protected function set_method() {
 		return $this->method;
 	}
 
@@ -82,7 +99,7 @@ abstract class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	protected function get_attributes() {
+	protected function set_attributes() {
 		return $this->attributes;
 	}
 
@@ -91,7 +108,7 @@ abstract class Form implements FormInterface {
 	 *
 	 * @return array
 	 */
-	protected function get_elements() {
+	protected function set_elements() {
 		return $this->elements;
 	}
 }

@@ -107,7 +107,7 @@ abstract class Element extends Tag implements ElementInterface {
 	 * @param string $name
 	 * @param array $args
 	 */
-	public function __construct( $name, $args = [ ] ) {
+	public function __construct( $name, array $args = [ ] ) {
 
 		$this->set_name( $name );
 
@@ -294,6 +294,46 @@ abstract class Element extends Tag implements ElementInterface {
 	public function set_value( $value ) {
 		if ( is_string( $value ) || is_numeric( $value ) || is_array( $value ) ) {
 			$this->value = $value;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Adds a value to the existing values
+	 *
+	 * @param $value
+	 *
+	 * @return $this
+	 */
+	public function add_value( $value ) {
+		if ( is_string( $value ) || is_numeric( $value ) || is_array( $value ) ) {
+			if ( is_array( $this->value ) ) {
+				$this->value[] = $value;
+			} else {
+				$this->value = [
+					$this->value,
+					$value
+				];
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Adds a value to the existing values
+	 *
+	 * @param array $values
+	 *
+	 * @return $this
+	 */
+	public function add_values( array $values ) {
+		if ( is_array( $this->value ) ) {
+			$this->value = array_merge( $this->value, $values );
+		} else {
+			$value       = [ $this->value ];
+			$this->value = array_merge( $value, $values );
 		}
 
 		return $this;

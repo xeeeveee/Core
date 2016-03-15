@@ -278,12 +278,12 @@ class Form extends Tag implements FormInterface {
 	 */
 	public function set_values( array $values = [ ] ) {
 		foreach ( $this->elements as $element ) {
-			if ( ! in_array( $element->getType(), $this->protected_element_types )
-			     && isset( $values[ $element->getName() ] )
-			) {
-				$element->setValue( $values[ $element->getName() ] );
-			} else {
-				$element->clearValue();
+			if ( ! in_array( $element->get_type(), $this->protected_element_types ) ) {
+				if ( isset( $values[ $element->get_name() ] ) ) {
+					$element->set_value( $values[ $element->get_name() ] );
+				} else {
+					$element->clear_value();
+				}
 			}
 		}
 

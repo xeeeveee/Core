@@ -56,6 +56,13 @@ abstract class Page extends Singleton implements PageInterface {
 	protected $ignore_list = [ ];
 
 	/**
+	 * @var string
+	 *
+	 * The form object to inject into the settings page
+	 */
+	protected $form = '';
+
+	/**
 	 * @var bool
 	 *
 	 * Whether the update was a success or not
@@ -81,6 +88,14 @@ abstract class Page extends Singleton implements PageInterface {
 		$class    = new ReflectionClass( $this );
 		$path     = dirname( $class->getFileName() ) . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR . $class->getShortName() . '.php';
 		$settings = $this->get_settings();
+
+		if ( ! empty( $this->form ) && is_string( $this->form ) && class_exists( $this->form ) ) {
+			$reflectionClass = new ReflectionClass( $this->form );
+			if ( $reflectionClass->IsInstantiable() ) {
+				$config = new $this->form( [ 'values' => $settings ] );
+				$form   = $config->get_form();
+			}
+		}
 
 		if ( file_exists( $path ) ) {
 			require_once( $path );

@@ -4,7 +4,7 @@ namespace Xeeeveee\Core\WordPress\Enqueue\Style;
 
 use Xeeeveee\Core\WordPress\Register\Enqueue\EnqueueStyle;
 
-class DatePicker extends EnqueueStyle {
+class JQueryUi extends EnqueueStyle {
 
 	/**
 	 * @inherit

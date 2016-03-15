@@ -87,7 +87,7 @@ abstract class Element extends Tag implements ElementInterface {
 	 * @var array
 	 */
 	protected $block_wrap_classes = [
-		'form-group'
+		'input-group'
 	];
 
 	/**

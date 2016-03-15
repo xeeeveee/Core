@@ -8,7 +8,7 @@ use Xeeeveee\Core\Utility\Tag;
 
 abstract class Element extends Tag implements ElementInterface {
 
-	use ConfigurationTrait
+	use ConfigurationTrait;
 
 	/**
 	 * The name of the element

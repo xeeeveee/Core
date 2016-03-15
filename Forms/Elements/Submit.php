@@ -12,9 +12,9 @@ class Submit extends Element {
 	/**
 	 * @inherit
 	 */
-	public function getElementHtml() {
+	public function get_element_html() {
 		$html = '<button type="submit" ';
-		$html .= $this->getAttributesString();
+		$html .= $this->get_attributes_string();
 		$html .= ' />';
 		$html .= $this->value;
 		$html .= '</button>';

@@ -69,6 +69,36 @@ abstract class Tag implements TagInterface {
 	}
 
 	/**
+	 * Removes the specified reserved attribute
+	 *
+	 * @param $attribute
+	 *
+	 * @return $this
+	 */
+	protected function remove_reserved_attribute( $attribute ) {
+		if ( isset( $this->reserved_attributes[ $attribute ] ) ) {
+			unset( $this->reserved_attributes[ $attribute ] );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Removes the specified reserved attributes
+	 *
+	 * @param array $attributes
+	 *
+	 * @return $this
+	 */
+	protected function remove_reserved_attributes( array $attributes = [ ] ) {
+		foreach ( $attributes as $attribute ) {
+			$this->remove_reserved_attribute( $attribute );
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Set the attributes
 	 *
 	 * This difference from add_attributes in that is will erase all the existing attributes and assign the new ones

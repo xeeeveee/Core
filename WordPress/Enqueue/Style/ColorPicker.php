@@ -1,10 +1,10 @@
 <?php
 
-namespace Xeeeveee\Core\WordPress\Enqueue;
+namespace Xeeeveee\Core\WordPress\Enqueue\Style;
 
 use Xeeeveee\Core\WordPress\Register\Enqueue\EnqueueStyle;
 
-class AdminStyles extends EnqueueStyle {
+class ColorPicker extends EnqueueStyle {
 
 	/**
 	 * @inherit

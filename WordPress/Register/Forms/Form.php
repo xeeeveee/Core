@@ -9,7 +9,7 @@ abstract class Form implements FormInterface {
 	 *
 	 * @var \Xeeeveee\Core\Forms\FormInterface
 	 */
-	protected $form;
+	private $form;
 
 	/**
 	 * The name of the form

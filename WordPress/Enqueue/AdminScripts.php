@@ -4,7 +4,7 @@ namespace Xeeeveee\Core\WordPress\Enqueue;
 
 use Xeeeveee\Core\WordPress\Register\Enqueue\EnqueueScript;
 
-class AdminFormScripts extends EnqueueScript {
+class AdminScripts extends EnqueueScript {
 
 	/**
 	 * @inherit
@@ -25,4 +25,11 @@ class AdminFormScripts extends EnqueueScript {
 	 * @inherit
 	 */
 	protected $admin = true;
+
+	/**
+	 * @inherit
+	 */
+	protected $dependencies = [
+		'wp-color-picker'
+	];
 }

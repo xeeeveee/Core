@@ -41,6 +41,8 @@ abstract class EnqueueScript extends Enqueue {
 	protected function setSource() {
 		if ( empty( $this->resource ) ) {
 			$this->source = false;
+		} elseif ( strpos( $this->resource, '/' ) !== false ) {
+			$this->source = $this->resource;
 		} else {
 			$this->source = $this->scripts_url . $this->location . $this->resource;
 		}

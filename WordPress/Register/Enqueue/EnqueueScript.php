@@ -15,8 +15,21 @@ abstract class EnqueueScript extends Enqueue {
 	 * Enqueues the style
 	 */
 	public function enqueue() {
-		if ( ! empty( $this->handle ) && ( $this->source === false || ! empty( $this->source ) ) ) {
-			wp_enqueue_script( $this->prefix . $this->handle, $this->source, $this->dependencies, $this->version, $this->footer );
+		if ( ! empty( $this->handle ) && ( $this->source === false || is_string( $this->source ) && ! empty( $this->source ) ) ) {
+
+			if ( wp_script_is( $this->handle, 'registered ' ) ) {
+				$handle = $this->handle;
+			} else {
+				$handle = $this->prefix . $this->handle;
+			}
+
+			wp_enqueue_script(
+				$handle,
+				$this->source,
+				$this->dependencies,
+				$this->version,
+				$this->footer
+			);
 		}
 	}
 
@@ -26,7 +39,11 @@ abstract class EnqueueScript extends Enqueue {
 	 * @return $this
 	 */
 	protected function setSource() {
-		$this->source = $this->scripts_url . $this->location . $this->resource;
+		if ( empty( $this->resource ) ) {
+			$this->source = false;
+		} else {
+			$this->source = $this->scripts_url . $this->location . $this->resource;
+		}
 
 		return $this;
 	}

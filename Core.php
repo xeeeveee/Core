@@ -5,8 +5,9 @@ namespace Xeeeveee\Core;
 use Xeeeveee\Core\Utility\Singleton;
 use Xeeeveee\Core\Configuration\ConfigurationTrait;
 use Xeeeveee\Core\Container\Container;
-use Xeeeveee\Core\WordPress\Enqueue\AdminScripts;
-use Xeeeveee\Core\WordPress\Enqueue\AdminStyles;
+use Xeeeveee\Core\WordPress\Enqueue\Script\AdminMain;
+use Xeeeveee\Core\WordPress\Enqueue\Style\ColorPicker;
+use Xeeeveee\Core\WordPress\Enqueue\Style\JQueryUi;
 use Xeeeveee\Core\WordPress\Prepare\Post;
 use Xeeeveee\Core\WordPress\Prepare\Term;
 use Xeeeveee\Core\WordPress\Register\Decorators\PostDecorator;
@@ -44,11 +45,15 @@ class Core extends Singleton {
 		}
 
 		if ( apply_filters( $this->filter_base . 'core/register/enqueue/admin_scripts', true ) ) {
-			$container->add( 'Xeeeveee\Core\WordPress\Enqueue\AdminScripts', AdminScripts::get_instance() );
+			$container->add( 'Xeeeveee\Core\WordPress\Enqueue\Script\AdminScripts', AdminMain::get_instance() );
 		}
 
-		if ( apply_filters( $this->filter_base . 'core/register/enqueue/admin_styles', true ) ) {
-			$container->add( 'Xeeeveee\Core\WordPress\Enqueue\AdminStyles', AdminStyles::get_instance() );
+		if ( apply_filters( $this->filter_base . 'core/register/enqueue/color_picker_styles', true ) ) {
+			$container->add( 'Xeeeveee\Core\WordPress\Enqueue\Style\ColorPicker', ColorPicker::get_instance() );
+		}
+
+		if ( apply_filters( $this->filter_base . 'core/register/enqueue/jquery_ui_styles', true ) ) {
+			$container->add( 'Xeeeveee\Core\WordPress\Enqueue\Style\JQueryUi', JQueryUi::get_instance() );
 		}
 	}
 }

@@ -12,10 +12,6 @@ interface FormInterface {
 
 	public function get_method();
 
-	public function set_reserved_attributes( array $attributes );
-
-	public function get_reserved_attributes();
-
 	public function set_protected_element_types( array $protected_element_types = [ ] );
 
 	public function get_protected_element_types();

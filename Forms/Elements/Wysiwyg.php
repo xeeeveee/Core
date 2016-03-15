@@ -20,6 +20,6 @@ class Wysiwyg extends Element {
 			'textarea_name' => $this->name
 		] );
 
-		return ob_get_flush();
+		return ob_get_clean();
 	}
 }

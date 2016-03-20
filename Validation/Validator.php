@@ -79,6 +79,42 @@ class Validator extends Singleton implements ValidatorInterface {
 	}
 
 	/**
+	 * Ensure a value exists and is not empty
+	 *
+	 * @param $value
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	public function validate_required( $value, array $parameters = [ ] ) {
+		return isset( $value ) && ! empty( $value );
+	}
+
+	/**
+	 * Ensure a value exists and is not empty only when other fields are present
+	 *
+	 * @param $value
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	public function validate_required_with( $value, array $parameters = [ ] ) {
+
+	}
+
+	/**
+	 * Ensure a value exists and is not empty only when other fields are present
+	 *
+	 * @param $value
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	public function validate_required_without( $value, array $parameters = [ ] ) {
+
+	}
+
+	/**
 	 * Ensure the value is a string
 	 *
 	 * @param $value
@@ -96,7 +132,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 *
 	 * @return bool
 	 */
-	protected function validate_numeric( $value, array $parameters = [  ) {
+	protected function validate_numeric( $value, array $parameters = [ ] ) {
 		return is_numeric( $value );
 	}
 
@@ -107,7 +143,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 *
 	 * @return bool
 	 */
-	protected function is_array( $value, array $parameters = [  ) {
+	protected function is_array( $value, array $parameters = [ ] ) {
 		return is_array( $value );
 	}
 
@@ -118,7 +154,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 *
 	 * @return bool
 	 */
-	protected function is_object( $value, array $parameters = [  ) {
+	protected function is_object( $value, array $parameters = [ ] ) {
 		return is_object( $value );
 	}
 }

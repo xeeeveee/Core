@@ -78,6 +78,13 @@ class Validator extends Singleton implements ValidatorInterface {
 		// TODO: Implement validate() method.
 	}
 
+	/**
+	 * Ensure the value is a string
+	 * 
+	 * @param $value
+	 *
+	 * @return bool
+	 */
 	protected function validate_string( $value ) {
 		return is_string( $value );
 	}

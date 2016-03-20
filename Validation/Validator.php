@@ -81,5 +81,16 @@ class Validator extends Singleton implements ValidatorInterface {
 	protected function validate_string( $value ) {
 		return is_string( $value );
 	}
+
+	/**
+	 * Ensure the value is numeric
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	protected function validate_numeric( $value ) {
+		return is_numeric( $value );
+	}
 }
 

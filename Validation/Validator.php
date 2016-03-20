@@ -80,7 +80,7 @@ class Validator extends Singleton implements ValidatorInterface {
 
 	/**
 	 * Ensure the value is a string
-	 * 
+	 *
 	 * @param $value
 	 *
 	 * @return bool
@@ -98,6 +98,28 @@ class Validator extends Singleton implements ValidatorInterface {
 	 */
 	protected function validate_numeric( $value ) {
 		return is_numeric( $value );
+	}
+
+	/**
+	 * Ensure the value is an array
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	protected function is_array( $value ) {
+		return is_array( $value );
+	}
+
+	/**
+	 * Ensure the value is an object
+	 * 
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	protected function is_object( $value ) {
+		return is_object( $value );
 	}
 }
 

@@ -38,7 +38,7 @@ class Validator implements ValidatorInterface {
 	 * @param $data
 	 */
 	public function __construct( array $data = [ ] ) {
-		$provider = ValidationProvider::get_instance();
+		$provider   = ValidationProvider::get_instance();
 		$this->data = $data;
 	}
 
@@ -69,12 +69,22 @@ class Validator implements ValidatorInterface {
 		return $this->errors;
 	}
 
+	/**
+	 * Checks if the validator has passed
+	 *
+	 * @return bool
+	 */
 	public function passes() {
-
+		return ( $this->provider->validate( $this->data, $this->rules() ) === true );
 	}
 
+	/**
+	 * Checks if the validator has failed
+	 *
+	 * @return bool
+	 */
 	public function fails() {
-
+		return ( $this->provider->validate( $this->data, $this->rules() ) === false );
 	}
 
 	/**

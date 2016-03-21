@@ -118,6 +118,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 * Ensure the value is a string
 	 *
 	 * @param $value
+	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
@@ -129,6 +130,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 * Ensure the value is numeric
 	 *
 	 * @param $value
+	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
@@ -140,6 +142,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 * Ensure the value is an array
 	 *
 	 * @param $value
+	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
@@ -151,6 +154,7 @@ class Validator extends Singleton implements ValidatorInterface {
 	 * Ensure the value is an object
 	 *
 	 * @param $value
+	 * @param array $parameters
 	 *
 	 * @return bool
 	 */

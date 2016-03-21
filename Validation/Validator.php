@@ -2,44 +2,66 @@
 
 namespace Xeeeveee\Core\Validation;
 
-use Xeeeveee\Core\Utility\Singleton;
-
-class Validator extends Singleton implements ValidatorInterface {
+class Validator implements ValidatorInterface {
 
 	/**
-	 * Holds custom validators
+	 * Holds the validation provider
+	 *
+	 * @var ValidationProvider
+	 */
+	protected $provider;
+
+	/**
+	 * Holds the rules
 	 *
 	 * @var array
 	 */
-	protected $validators = [ ];
+	protected $rules = [ ];
 
 	/**
-	 * Holds the error templates
+	 * Holds the data
 	 *
 	 * @var array
 	 */
-	protected $error_templates = [
-		'string' => ':field must be a string'
-	];
+	protected $data = [ ];
 
 	/**
-	 * Holds the validation errors
+	 * Holds the errors
 	 *
 	 * @var array
 	 */
 	protected $errors = [ ];
 
 	/**
-	 * Get all the registered validators
+	 * Prepare the object
 	 *
-	 * @return array
+	 * @param $data
 	 */
-	public function get_validators() {
-		return $this->validators;
+	public function __construct( array $data = [ ] ) {
+		$provider = ValidationProvider::get_instance();
+		$this->data = $data;
 	}
 
 	/**
-	 * Get all errors for the last validator
+	 * Get the rules
+	 *
+	 * @return array
+	 */
+	public function get_rules() {
+		return $this->rules();
+	}
+
+	/**
+	 * Get the data
+	 *
+	 * @return array
+	 */
+	public function get_data() {
+		return $this->data;
+	}
+
+	/**
+	 * Get the errors
 	 *
 	 * @return array
 	 */
@@ -47,119 +69,24 @@ class Validator extends Singleton implements ValidatorInterface {
 		return $this->errors;
 	}
 
+	public function passes() {
+
+	}
+
+	public function fails() {
+
+	}
+
 	/**
-	 * Get all error templates
+	 * Gets the rules
+	 *
+	 * This is implemented as a method to allow logic to be applied to the rules in extending classes
 	 *
 	 * @return array
 	 */
-	public function get_error_templates() {
-		return $this->error_templates;
+	protected function rules() {
+		return $this->rules;
 	}
 
-	public function register_validator( $name, $callback, $error_message, $force = false ) {
-
-		if ( ! is_array( $callback ) && ! is_string( $callback ) ) {
-			// TODO: Throw exception
-		}
-
-		if ( isset( $this->error_templates[ $name ] )
-		     && ( isset( $this->validators[ $name ] ) || method_exists( $this, 'validate_' . $name ) )
-		) {
-			if ( $force ) {
-				$this->validators[ $name ]      = $callback;
-				$this->error_templates[ $name ] = $error_message;
-			} else {
-				// TODO: Throw exception
-			}
-		}
-	}
-
-	public function validate( array $data = [ ], array $rules = [ ] ) {
-		// TODO: Implement validate() method.
-	}
-
-	/**
-	 * Ensure a value exists and is not empty
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	public function validate_required( $value, array $parameters = [ ] ) {
-		return isset( $value ) && ! empty( $value );
-	}
-
-	/**
-	 * Ensure a value exists and is not empty only when other fields are present
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	public function validate_required_with( $value, array $parameters = [ ] ) {
-
-	}
-
-	/**
-	 * Ensure a value exists and is not empty only when other fields are present
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	public function validate_required_without( $value, array $parameters = [ ] ) {
-
-	}
-
-	/**
-	 * Ensure the value is a string
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_string( $value, array $parameters = [ ] ) {
-		return is_string( $value );
-	}
-
-	/**
-	 * Ensure the value is numeric
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_numeric( $value, array $parameters = [ ] ) {
-		return is_numeric( $value );
-	}
-
-	/**
-	 * Ensure the value is an array
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function is_array( $value, array $parameters = [ ] ) {
-		return is_array( $value );
-	}
-
-	/**
-	 * Ensure the value is an object
-	 *
-	 * @param $value
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function is_object( $value, array $parameters = [ ] ) {
-		return is_object( $value );
-	}
 }
 

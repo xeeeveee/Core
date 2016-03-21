@@ -174,6 +174,51 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
+	 * Ensure a date is after a given datetime
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_date_after( $value, array $data = [ ], array $parameters = [ ] ) {
+		$date = strtotime( $value );
+
+		return ( $date !== false && $value > strtotime( $parameters[0] ) );
+	}
+
+	/**
+	 * Ensure a date is before a given datetime
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_date_before( $value, array $data = [ ], array $parameters = [ ] ) {
+		$date = strtotime( $value );
+
+		return ( $date !== false && $value < strtotime( $parameters[0] ) );
+	}
+
+	/**
+	 * Ensure a date is between two given datetimes
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_date_between( $value, array $data = [ ], array $parameters = [ ] ) {
+		$date = strtotime( $value );
+
+		return ( $date !== false && $value > strtotime( $parameters[0] ) && $value < strtotime( $parameters[0] ) );
+	}
+
+	/**
 	 * Ensures the value matches an other field
 	 *
 	 * @param $value

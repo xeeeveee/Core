@@ -239,7 +239,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
-	 * Ensure a value exists and is not empty only when another field is a set value
+	 * Ensure the URL is reachable
 	 *
 	 * @param $value
 	 * @param array $data
@@ -247,12 +247,8 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	public function validate_required_if( $value, array $data = [ ], array $parameters = [ ] ) {
-		if ( isset( $data[ $parameters[0] ] ) && $data[ $parameters[0] ] == $parameters[1] ) {
-			return isset( $value ) && ! empty( $value );
-		}
-
-		return true;
+	protected function validate_reachable_url( $value, array $data = [ ], array $parameters = [ ] ) {
+		return checkdnsrr( $value );
 	}
 
 	/**
@@ -264,8 +260,25 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	public function validate_required( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_required( $value, array $data = [ ], array $parameters = [ ] ) {
 		return isset( $value ) && ! empty( $value );
+	}
+
+	/**
+	 * Ensure a value exists and is not empty only when another field is a set value
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_required_if( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( isset( $data[ $parameters[0] ] ) && $data[ $parameters[0] ] == $parameters[1] ) {
+			return isset( $value ) && ! empty( $value );
+		}
+
+		return true;
 	}
 
 	/**
@@ -277,7 +290,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	public function validate_required_with( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_required_with( $value, array $data = [ ], array $parameters = [ ] ) {
 		if ( isset( $data[ $parameters[0] ] ) && ! empty( $data[ $parameters[0] ] ) ) {
 			return isset( $value ) && ! empty( $value );
 		}
@@ -294,7 +307,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	public function validate_required_without( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_required_without( $value, array $data = [ ], array $parameters = [ ] ) {
 		if ( ! isset( $data[ $parameters[0] ] ) || empty( $data[ $parameters[0] ] ) ) {
 			return isset( $value ) && ! empty( $value );
 		}

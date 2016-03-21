@@ -185,7 +185,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	protected function validate_is_array( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_array( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_array( $value );
 	}
 
@@ -198,7 +198,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	protected function validate_is_object( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_object( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_object( $value );
 	}
 
@@ -281,6 +281,19 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 		}
 
 		return false;
+	}
+
+	/**
+	 * Ensures the value matches an other field
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_matches( $value, array $data = [ ], array $parameters = [ ] ) {
+		return $value == $data[ $parameters[0] ];
 	}
 }
 

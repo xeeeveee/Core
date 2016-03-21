@@ -4,15 +4,13 @@ namespace Xeeeveee\Core\Validation;
 
 interface ValidatorInterface {
 
-	public function get_validators();
+	public function get_rules();
+
+	public function get_data();
 
 	public function get_errors();
 
-	public function get_error_templates();
+	public function passes();
 
-	public function register_validator( $name, $callback, $error_message );
-
-	public function validate( array $data = [ ], array $rules = [ ] );
-
-
+	public function fails();
 }

@@ -87,6 +87,175 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
+	 * Ensures the value matches an accepted value
+	 *
+	 * Valid values:
+	 * - true
+	 * - 1
+	 * - yes
+	 * - on
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_accepted( $value, array $data = [ ], array $parameters = [ ] ) {
+		return ( $value == true || $value == 1 || strtolower( $value ) == 'yes' || $value == 'on' );
+	}
+
+	/**
+	 * Ensure the value is an array
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_array( $value, array $data = [ ], array $parameters = [ ] ) {
+		return is_array( $value );
+	}
+
+	/**
+	 * Ensure the value is within a range
+	 *
+	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_between( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( is_numeric( $value ) ) {
+			return ( $value >= $parameters[0] && $value <= $parameters[1] );
+		}
+
+		if ( is_string( $value ) ) {
+			return ( strlen( $value ) >= $parameters[0] && $value <= $parameters[1] );
+		}
+
+		if ( is_array( $value ) ) {
+			return ( count( $value ) >= $parameters[0] && count( $value ) >= $parameters[0] );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ensures the value matches an other field
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_matches( $value, array $data = [ ], array $parameters = [ ] ) {
+		return $value == $data[ $parameters[0] ];
+	}
+
+	/**
+	 * Ensure the value does not exceed a maximum
+	 *
+	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_max( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( is_numeric( $value ) ) {
+			return $value <= $parameters[0];
+		}
+
+		if ( is_string( $value ) ) {
+			return strlen( $value ) <= $parameters[0];
+		}
+
+		if ( is_array( $value ) ) {
+			return count( $value ) <= $parameters[0];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ensure the value is at least a minimum value
+	 *
+	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_min( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( is_numeric( $value ) ) {
+			return $value >= $parameters[0];
+		}
+
+		if ( is_string( $value ) ) {
+			return strlen( $value ) >= $parameters[0];
+		}
+
+		if ( is_array( $value ) ) {
+			return count( $value ) >= $parameters[0];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ensure the value is numeric
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_numeric( $value, array $data = [ ], array $parameters = [ ] ) {
+		return is_numeric( $value );
+	}
+
+	/**
+	 * Ensure the value is an object
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_object( $value, array $data = [ ], array $parameters = [ ] ) {
+		return is_object( $value );
+	}
+
+	/**
+	 * Ensure a value exists and is not empty only when another field is a set value
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	public function validate_required_if( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( isset( $data[ $parameters[0] ] ) && $data[ $parameters[0] ] == $parameters[1] ) {
+			return isset( $value ) && ! empty( $value );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Ensure a value exists and is not empty
 	 *
 	 * @param $value
@@ -134,23 +303,6 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
-	 * Ensure a value exists and is not empty only when another field is a set value
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	public function validate_required_if( $value, array $data = [ ], array $parameters = [ ] ) {
-		if ( isset( $data[ $parameters[0] ] ) && $data[ $parameters[0] ] == $parameters[1] ) {
-			return isset( $value ) && ! empty( $value );
-		}
-
-		return true;
-	}
-
-	/**
 	 * Ensure the value is a string
 	 *
 	 * @param $value
@@ -161,158 +313,6 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 */
 	protected function validate_string( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_string( $value );
-	}
-
-	/**
-	 * Ensure the value is numeric
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_numeric( $value, array $data = [ ], array $parameters = [ ] ) {
-		return is_numeric( $value );
-	}
-
-	/**
-	 * Ensure the value is an array
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_array( $value, array $data = [ ], array $parameters = [ ] ) {
-		return is_array( $value );
-	}
-
-	/**
-	 * Ensure the value is an object
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_object( $value, array $data = [ ], array $parameters = [ ] ) {
-		return is_object( $value );
-	}
-
-	/**
-	 * Ensure the value is at least a minimum value
-	 *
-	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_min( $value, array $data = [ ], array $parameters = [ ] ) {
-		if ( is_numeric( $value ) ) {
-			return $value >= $parameters[0];
-		}
-
-		if ( is_string( $value ) ) {
-			return strlen( $value ) >= $parameters[0];
-		}
-
-		if ( is_array( $value ) ) {
-			return count( $value ) >= $parameters[0];
-		}
-
-		return false;
-	}
-
-	/**
-	 * Ensure the value does not exceed a maximum
-	 *
-	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_max( $value, array $data = [ ], array $parameters = [ ] ) {
-		if ( is_numeric( $value ) ) {
-			return $value <= $parameters[0];
-		}
-
-		if ( is_string( $value ) ) {
-			return strlen( $value ) <= $parameters[0];
-		}
-
-		if ( is_array( $value ) ) {
-			return count( $value ) <= $parameters[0];
-		}
-
-		return false;
-	}
-
-	/**
-	 * Ensure the value is within a range
-	 *
-	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_between( $value, array $data = [ ], array $parameters = [ ] ) {
-		if ( is_numeric( $value ) ) {
-			return ( $value >= $parameters[0] && $value <= $parameters[1] );
-		}
-
-		if ( is_string( $value ) ) {
-			return ( strlen( $value ) >= $parameters[0] && $value <= $parameters[1] );
-		}
-
-		if ( is_array( $value ) ) {
-			return ( count( $value ) >= $parameters[0] && count( $value ) >= $parameters[0] );
-		}
-
-		return false;
-	}
-
-	/**
-	 * Ensures the value matches an other field
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_matches( $value, array $data = [ ], array $parameters = [ ] ) {
-		return $value == $data[ $parameters[0] ];
-	}
-
-	/**
-	 * Ensures the value matches an accepted value
-	 *
-	 * Valid values:
-	 * - true
-	 * - 1
-	 * - yes
-	 * - on
-	 *
-	 * @param $value
-	 * @param array $data
-	 * @param array $parameters
-	 *
-	 * @return bool
-	 */
-	protected function validate_accepted( $value, array $data = [ ], array $parameters = [ ] ) {
-		return ( $value == true || $value == 1 || strtolower( $value ) == 'yes' || $value == 'on' );
 	}
 }
 

@@ -201,5 +201,86 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	protected function validate_is_object( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_object( $value );
 	}
+
+	/**
+	 * Ensure the value is at least a minimum value
+	 *
+	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_min( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( is_numeric( $value ) ) {
+			return $value >= $parameters[0];
+		}
+
+		if ( is_string( $value ) ) {
+			return strlen( $value ) >= $parameters[0];
+		}
+
+		if ( is_array( $value ) ) {
+			return count( $value ) >= $parameters[0];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ensure the value does not exceed a maximum
+	 *
+	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_max( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( is_numeric( $value ) ) {
+			return $value <= $parameters[0];
+		}
+
+		if ( is_string( $value ) ) {
+			return strlen( $value ) <= $parameters[0];
+		}
+
+		if ( is_array( $value ) ) {
+			return count( $value ) <= $parameters[0];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ensure the value is within a range
+	 *
+	 * Numeric values will be compared numerically, strings will be compared on length, arrays will be compared on size
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_between( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( is_numeric( $value ) ) {
+			return ( $value >= $parameters[0] && $value <= $parameters[1] );
+		}
+
+		if ( is_string( $value ) ) {
+			return ( strlen( $value ) >= $parameters[0] && $value <= $parameters[1] );
+		}
+
+		if ( is_array( $value ) ) {
+			return ( count( $value ) >= $parameters[0] && count( $value ) >= $parameters[0] );
+		}
+
+		return false;
+	}
 }
 

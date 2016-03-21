@@ -219,6 +219,19 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
+	 * Ensures the value differs from another field
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_different( $value, array $data = [ ], array $parameters = [ ] ) {
+		return $value != $data[ $parameters[0] ];
+	}
+
+	/**
 	 * Ensures the value matches an other field
 	 *
 	 * @param $value
@@ -227,7 +240,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	protected function validate_matches( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_match( $value, array $data = [ ], array $parameters = [ ] ) {
 		return $value == $data[ $parameters[0] ];
 	}
 

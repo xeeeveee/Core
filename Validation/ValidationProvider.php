@@ -56,7 +56,15 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 		return $this->error_templates;
 	}
 
-	public function register_validator( $name, $callback, $error_message, $force = false ) {
+	/**
+	 * Registers a new validator
+	 *
+	 * @param string $name
+	 * @param string|array $callback
+	 * @param array $error_template
+	 * @param bool $force
+	 */
+	public function register_validator( $name, $callback, $error_template, $force = false ) {
 
 		if ( ! is_array( $callback ) && ! is_string( $callback ) ) {
 			// TODO: Throw exception
@@ -67,7 +75,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 		) {
 			if ( $force ) {
 				$this->validators[ $name ]      = $callback;
-				$this->error_templates[ $name ] = $error_message;
+				$this->error_templates[ $name ] = $error_template;
 			} else {
 				// TODO: Throw exception
 			}

@@ -10,7 +10,7 @@ interface ValidationProviderInterface {
 
 	public function get_error_templates();
 
-	public function register_validator( $name, $callback, $error_message );
+	public function register_validator( $name, $callback, $error_template, $force = false );
 
 	public function validate( array $data = [ ], array $rules = [ ] );
 

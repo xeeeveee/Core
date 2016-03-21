@@ -146,6 +146,34 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
+	 * Ensure the value is a date
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_date( $value, array $data = [ ], array $parameters = [ ] ) {
+		return ( strtotime( $value ) !== false );
+	}
+
+	/**
+	 * Ensure the date is a given format
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_date_format( $value, array $data = [ ], array $parameters = [ ] ) {
+		$date = date_parse_from_format( $parameters[0], $value );
+
+		return ( $date['error_count'] === 0 && $date['warning_count'] === 0 );
+	}
+
+	/**
 	 * Ensures the value matches an other field
 	 *
 	 * @param $value

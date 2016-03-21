@@ -295,5 +295,24 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	protected function validate_matches( $value, array $data = [ ], array $parameters = [ ] ) {
 		return $value == $data[ $parameters[0] ];
 	}
+
+	/**
+	 * Ensures the value matches an accepted value
+	 *
+	 * Valid values:
+	 * - true
+	 * - 1
+	 * - yes
+	 * - on
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function validate_accepted( $value, array $data = [ ], array $parameters = [ ] ) {
+		return ( $value == true || $value == 1 || strtolower( $value ) == 'yes' || $value == 'on' );
+	}
 }
 

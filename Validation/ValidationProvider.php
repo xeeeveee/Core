@@ -146,6 +146,19 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
+	 * Ensures the value is a boolean or boolean like
+	 *
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function boolean( $value, array $data = [ ], array $parameters = [ ] ) {
+		return ( is_bool( $value ) || $value == 1 || $value == 0 || $value == '1' || $value == '0' );
+	}
+
+	/**
 	 * Ensure the value is a date
 	 *
 	 * @param $value

@@ -90,11 +90,12 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * Ensure a value exists and is not empty
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	public function validate_required( $value, array $parameters = [ ] ) {
+	public function validate_required( $value, array $data = [ ], array $parameters = [ ] ) {
 		return isset( $value ) && ! empty( $value );
 	}
 
@@ -102,29 +103,30 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * Ensure a value exists and is not empty only when other fields are present
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	public function validate_required_with( $value, array $parameters = [ ] ) {
-		if ( isset( $parameters[0] ) && ! empty( $parameters[0] ) ) {
+	public function validate_required_with( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( isset( $data[ $parameters[0] ] ) && ! empty( $data[ $parameters[0] ] ) ) {
 			return isset( $value ) && ! empty( $value );
 		}
 
 		return true;
-
 	}
 
 	/**
 	 * Ensure a value exists and is not empty only when other fields are present
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	public function validate_required_without( $value, array $parameters = [ ] ) {
-		if ( ! isset( $parameters[0] ) || empty( $parameters[0] ) ) {
+	public function validate_required_without( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( ! isset( $data[ $parameters[0] ] ) || empty( $data[ $parameters[0] ] ) ) {
 			return isset( $value ) && ! empty( $value );
 		}
 
@@ -135,11 +137,12 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * Ensure the value is a string
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	protected function validate_string( $value, array $parameters = [ ] ) {
+	protected function validate_string( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_string( $value );
 	}
 
@@ -147,11 +150,12 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * Ensure the value is numeric
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	protected function validate_numeric( $value, array $parameters = [ ] ) {
+	protected function validate_numeric( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_numeric( $value );
 	}
 
@@ -159,11 +163,12 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * Ensure the value is an array
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	protected function is_array( $value, array $parameters = [ ] ) {
+	protected function is_array( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_array( $value );
 	}
 
@@ -171,11 +176,12 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * Ensure the value is an object
 	 *
 	 * @param $value
+	 * @param array $data
 	 * @param array $parameters
 	 *
 	 * @return bool
 	 */
-	protected function is_object( $value, array $parameters = [ ] ) {
+	protected function is_object( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_object( $value );
 	}
 }

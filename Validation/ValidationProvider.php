@@ -134,6 +134,23 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	}
 
 	/**
+	 * Ensure a value exists and is not empty only when another field is a set value
+	 * 
+	 * @param $value
+	 * @param array $data
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	public function validate_required_if( $value, array $data = [ ], array $parameters = [ ] ) {
+		if ( isset( $data[ $parameters[0] ] ) && $data[ $parameters[0] ] == $parameters[1] ) {
+			return isset( $value ) && ! empty( $value );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Ensure the value is a string
 	 *
 	 * @param $value

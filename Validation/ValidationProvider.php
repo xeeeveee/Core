@@ -107,6 +107,11 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * @return bool
 	 */
 	public function validate_required_with( $value, array $parameters = [ ] ) {
+		if ( isset( $parameters[0] ) && ! empty( $parameters[0] ) ) {
+			return isset( $value ) && ! empty( $value );
+		}
+
+		return true;
 
 	}
 
@@ -119,7 +124,11 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 * @return bool
 	 */
 	public function validate_required_without( $value, array $parameters = [ ] ) {
+		if ( ! isset( $parameters[0] ) || empty( $parameters[0] ) ) {
+			return isset( $value ) && ! empty( $value );
+		}
 
+		return true;
 	}
 
 	/**

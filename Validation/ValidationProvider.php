@@ -135,7 +135,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 
 	/**
 	 * Ensure a value exists and is not empty only when another field is a set value
-	 * 
+	 *
 	 * @param $value
 	 * @param array $data
 	 * @param array $parameters
@@ -185,7 +185,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	protected function is_array( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_is_array( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_array( $value );
 	}
 
@@ -198,7 +198,7 @@ class ValidationProvider extends Singleton implements ValidationProviderInterfac
 	 *
 	 * @return bool
 	 */
-	protected function is_object( $value, array $data = [ ], array $parameters = [ ] ) {
+	protected function validate_is_object( $value, array $data = [ ], array $parameters = [ ] ) {
 		return is_object( $value );
 	}
 }

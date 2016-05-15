@@ -1,7 +1,7 @@
 {
   "name": "xeeeveee/core",
   "description": "Core WordPress plugin to be built upon",
-  "type" : "library",
+  "type" : "wordpress-muplugin",
   "keywords": [
     "WordPress",
     "Core",

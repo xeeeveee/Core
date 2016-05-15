@@ -1,0 +1,19 @@
+{
+  "name": "xeeeveee/core",
+  "description": "Core WordPress plugin to be built upon",
+  "type" : "library",
+  "keywords": [
+    "WordPress",
+    "Core",
+    "Base",
+    "Abstract",
+  ],
+  "homepage": "https://github.com/xeeeveee/core",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jack Neary",
+      "email": "xeeeveee@gmail.com"
+    }
+  ]
+}

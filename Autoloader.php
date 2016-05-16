@@ -4,12 +4,8 @@ namespace Xeeeveee\Core;
 
 spl_autoload_register( function ( $class ) {
 
-	$parts = explode( '\\', __NAMESPACE__ );
+	$parts = explode( '\\', $class );
 	$root  = $parts[0];
-
-	if ( strpos( $class, $root ) !== 0 ) {
-		return;
-	}
 
 	$class         = str_replace( $root . '\\', '', $class );
 	$path          = str_replace( '\\', DIRECTORY_SEPARATOR, $class ) . '.php';

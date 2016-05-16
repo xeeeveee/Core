@@ -7,8 +7,6 @@ use Xeeeveee\Core\WordPress\Register\Types\Type;
 
 abstract class Taxonomy extends Type implements TaxonomyInterface {
 
-	use ConfigurationTrait;
-
 	/**
 	 * @var string
 	 *

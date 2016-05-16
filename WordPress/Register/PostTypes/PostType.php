@@ -7,8 +7,6 @@ use Xeeeveee\Core\WordPress\Register\Types\Type;
 
 abstract class PostType extends Type implements PostTypeInterface {
 
-	use ConfigurationTrait;
-
 	/**
 	 * @var string
 	 *

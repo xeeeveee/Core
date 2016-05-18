@@ -59,7 +59,7 @@ class Cache implements CacheInterface {
 	 * @return bool|mixed
 	 */
 	public function get( $id ) {
-		if ( ! file_exists( $this->cache_directory . $this->encode_id( $id ) ) ) {
+		if ( ! file_exists( $this->cache_directory . $this->encode_id( $id ) ) && is_file( $this->cache_directory . $this->encode_id( $id ) ) ) {
 			return false;
 		}
 
@@ -124,6 +124,7 @@ class Cache implements CacheInterface {
 	 * Sets the cache directory
 	 *
 	 * Paths is always relative to wp-content
+	 *
 	 * @param $path
 	 *
 	 * @throws EmptyOrUndefinedException

@@ -153,6 +153,10 @@ class Post extends Singleton implements PostInterface {
 	 */
 	protected function get_terms( array $posts = [ ] ) {
 
+		if ( empty( $posts ) ) {
+			return [ ];
+		}
+
 		global $wpdb;
 
 		$ids          = [ ];
@@ -200,6 +204,10 @@ class Post extends Singleton implements PostInterface {
 	 * @return array|null|object
 	 */
 	protected function get_meta( array $posts = [ ] ) {
+
+		if ( empty( $posts ) ) {
+			return [ ];
+		}
 
 		global $wpdb;
 

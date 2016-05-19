@@ -122,6 +122,10 @@ class Term extends Singleton implements TermInterface {
 	 */
 	protected function get_meta( array $terms = [ ] ) {
 
+		if ( empty( $terms ) ) {
+			return [ ];
+		}
+
 		global $wpdb;
 
 		$ids          = [ ];

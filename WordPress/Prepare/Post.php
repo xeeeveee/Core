@@ -96,6 +96,10 @@ class Post extends Singleton implements PostInterface {
 				continue;
 			}
 
+			if ( strpos( $meta->meta_key, '_', 0 ) !== false ) {
+				continue;
+			}
+
 			/*
 			 * Format <base>/prepare/meta/<post type>/<meta key>
 			 */

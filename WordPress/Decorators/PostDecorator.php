@@ -103,7 +103,7 @@ class PostDecorator extends Decorator implements DecoratorInterface {
 		if ( isset( $this->meta_decorator )
 		     && is_string( $this->meta_decorator )
 		     && class_exists( $this->meta_decorator )
-		     && is_subclass_of( $this->meta_decorator, 'DecoratorInterface' )
+		     && is_subclass_of( $this->meta_decorator, 'Xeeeveee\Core\WordPress\Decorators\DecoratorInterface' )
 		) {
 			return new $this->meta_decorator( $this->original->meta );
 		}

@@ -9,14 +9,14 @@ spl_autoload_register( function ( $class ) {
 	$class = str_replace( $root . '\\', '', $class );
 
 	$paths = [
-			str_replace( '\\', DIRECTORY_SEPARATOR, ucfirst( $class ) ) . '.php',
-			str_replace( '\\', DIRECTORY_SEPARATOR, lcfirst( $class ) ) . '.php'
+		str_replace( '\\', DIRECTORY_SEPARATOR, ucfirst( $class ) ) . '.php',
+		str_replace( '\\', DIRECTORY_SEPARATOR, lcfirst( $class ) ) . '.php'
 	];
 
 	$roots = [
-			WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR,
-			WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'mu-plugins' . DIRECTORY_SEPARATOR,
-			WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR
+		WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR,
+		WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'mu-plugins' . DIRECTORY_SEPARATOR,
+		WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR
 	];
 
 	foreach ( $paths as $path ) {

@@ -21,6 +21,16 @@ abstract class Decorator extends Singleton implements DecoratorInterface {
 	protected $decorator = '';
 
 	/**
+	 * @var bool
+	 */
+	protected $meta = false;
+
+	/**
+	 * @var bool
+	 */
+	protected $term = false;
+
+	/**
 	 * @var int
 	 */
 	protected $priority = 20;
@@ -29,9 +39,35 @@ abstract class Decorator extends Singleton implements DecoratorInterface {
 	 * Register the decorator
 	 */
 	protected function __construct() {
-		if ( ! empty( $this->post_type ) && is_string( $this->post_type ) ) {
+		if ( ! empty( $this->post_type ) && is_string( $this->post_type ) && ! $this->meta && ! $this->term ) {
 			add_filter( $this->filter_base . 'prepare/post/' . $this->post_type . '/decorator',
-				[ $this, 'attach' ], $this->priority, 2 );
+					[ $this, 'attach' ], $this->priority, 2 );
+		}
+
+		if ( $this->meta === true || $this->term === true ) {
+			$types = [ ];
+
+			if ( $this->meta === true ) {
+				$types[] = 'meta';
+			}
+
+			if ( $this->term === true ) {
+				$types[] = 'term';
+			}
+
+			foreach ( $types as $type ) {
+				if ( ! empty( $this->post_type ) && is_string( $this->post_type ) ) {
+					add_filter( $this->filter_base . 'decorators/' . $type . '/' . $this->post_type, [
+							$this,
+							'set'
+					], $this->priority, 2 );
+				} else {
+					add_filter( $this->filter_base . 'decorators/' . $type . '/global', [
+							$this,
+							'set'
+					], $this->priority, 2 );
+				}
+			}
 		}
 	}
 
@@ -54,5 +90,17 @@ abstract class Decorator extends Singleton implements DecoratorInterface {
 		}
 
 		return $decorator;
+	}
+
+	/**
+	 * Set a custom term or meta decorator
+	 *
+	 * @param $decorator
+	 * @param $post
+	 *
+	 * @return string
+	 */
+	public function set( $decorator, $post ) {
+		return $this->decorator;
 	}
 }

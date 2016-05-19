@@ -1,5 +1,5 @@
 {
-  "name": "xeeeveee/core",
+  "name": "xeeeveee/Core",
   "description": "Core WordPress plugin to be built upon",
   "type" : "wordpress-muplugin",
   "keywords": [

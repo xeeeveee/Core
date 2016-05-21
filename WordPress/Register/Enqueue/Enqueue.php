@@ -176,9 +176,9 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	 */
 	protected function getLocation() {
 		if ( $this->admin ) {
-			$this->location = 'Admin/';
+			return 'Admin/';
 		} else {
-			$this->location = 'Frontend/';
+			return 'Frontend/';
 		}
 	}
 }

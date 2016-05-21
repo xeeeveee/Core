@@ -97,8 +97,8 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 
 		$base              = $this->getBaseFolder();
 		$this->assets_url  = $this->getAssetsUrl( $base );
-		$this->scripts_url = $this->assets_url . 'Scripts/';
-		$this->styles_url  = $this->assets_url . 'Styles/';
+		$this->scripts_url = $this->getScriptsUrl();
+		$this->styles_url  = $this->getStylesUrl();
 		$this->setSource();
 	}
 

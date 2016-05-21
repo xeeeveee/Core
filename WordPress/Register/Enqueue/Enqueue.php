@@ -46,6 +46,13 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	protected $admin = false;
 
 	/**
+	 * @var string
+	 *
+	 * The type of enqueue to call
+	 */
+	protected $type = '';
+
+	/**
 	 * @var array
 	 *
 	 * The handle of any dependencies
@@ -116,11 +123,26 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	abstract public function enqueue();
 
 	/**
-	 * Should be implemented to set the source of the asset appropriately
+	 * Set the source of the resource
 	 *
-	 * @return mixed
+	 * @return $this
 	 */
-	abstract protected function setSource();
+	protected function setSource() {
+		if ( empty( $this->resource ) ) {
+			$this->source = false;
+		} elseif ( strpos( $this->resource, '/' ) !== false ) {
+			$this->source = $this->resource;
+		} else {
+			if ( $this->type == 'script' ) {
+				$url = $this->scripts_url;
+			} else {
+				$url = $this->styles_url;
+			}
+			$this->source = $url . $this->location . $this->resource;
+		}
+
+		return $this;
+	}
 
 	/**
 	 * Get the base assets folder

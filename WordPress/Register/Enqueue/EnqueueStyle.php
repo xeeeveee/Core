@@ -12,6 +12,11 @@ abstract class EnqueueStyle extends Enqueue {
 	protected $media = 'all';
 
 	/**
+	 * @inherit
+	 */
+	protected $type = 'style';
+
+	/**
 	 * Enqueues the style
 	 */
 	public function enqueue() {
@@ -24,29 +29,12 @@ abstract class EnqueueStyle extends Enqueue {
 			}
 
 			wp_enqueue_style(
-				$handle,
-				$this->source,
-				$this->dependencies,
-				$this->version,
-				$this->media
+					$handle,
+					$this->source,
+					$this->dependencies,
+					$this->version,
+					$this->media
 			);
 		}
-	}
-
-	/**
-	 * Set the source of the resource
-	 *
-	 * @return $this
-	 */
-	protected function setSource() {
-		if ( empty( $this->resource ) ) {
-			$this->source = false;
-		} elseif ( strpos( $this->resource, '/' ) !== false ) {
-			$this->source = $this->resource;
-		} else {
-			$this->source = $this->styles_url . $this->location . $this->resource;
-		}
-
-		return $this;
 	}
 }

@@ -95,8 +95,8 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 			$this->location = 'Admin/';
 		}
 
-		$base              = $this->get_base_folder();
-		$this->assets_url  = trailingslashit( plugins_url() ) . $base . '/Assets/';
+		$base              = $this->getBaseFolder();
+		$this->assets_url  = $this->getAssetsUrl( $base );
 		$this->scripts_url = $this->assets_url . 'Scripts/';
 		$this->styles_url  = $this->assets_url . 'Styles/';
 		$this->setSource();
@@ -123,7 +123,7 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	 *
 	 * @return mixed
 	 */
-	protected function get_base_folder() {
+	protected function getBaseFolder() {
 		$reflectionClass = new ReflectionClass( $this );
 		$parts           = explode( '\\', $reflectionClass->name );
 
@@ -132,5 +132,34 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 		} else {
 			return $reflectionClass->name;
 		}
+	}
+
+	/**
+	 * Get the assets URL
+	 *
+	 * @param $base
+	 *
+	 * @return string
+	 */
+	protected function getAssetsUrl( $base ) {
+		return trailingslashit( plugins_url() ) . $base . '/Assets/';
+	}
+
+	/**
+	 * Get the scripts URL
+	 *
+	 * @return string
+	 */
+	protected function getScriptsUrl() {
+		return $this->assets_url . 'Scripts/';
+	}
+
+	/**
+	 * Get the styles URL
+	 *
+	 * @return string
+	 */
+	protected function getStylesUrl() {
+		return $this->assets_url . 'Styles/';
 	}
 }

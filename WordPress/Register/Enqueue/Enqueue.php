@@ -81,24 +81,30 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	protected $styles_url = '';
 
 	/**
+	 * The location with in the scripts or styles url
+	 *
+	 * @var string
+	 */
+	protected $location = '';
+
+	/**
 	 * Register the appropriate actions with WordPress
 	 */
 	public function __construct() {
 
 		if ( $this->frontend ) {
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ] );
-			$this->location = 'Frontend/';
 		}
 
 		if ( $this->admin ) {
 			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue' ] );
-			$this->location = 'Admin/';
 		}
 
 		$base              = $this->getBaseFolder();
 		$this->assets_url  = $this->getAssetsUrl( $base );
 		$this->scripts_url = $this->getScriptsUrl();
 		$this->styles_url  = $this->getStylesUrl();
+		$this->location    = $this->getLocation();
 		$this->setSource();
 	}
 
@@ -161,5 +167,18 @@ abstract class Enqueue extends Singleton implements EnqueueInterface {
 	 */
 	protected function getStylesUrl() {
 		return $this->assets_url . 'Styles/';
+	}
+
+	/**
+	 * Get the styles URL
+	 *
+	 * @return string
+	 */
+	protected function getLocation() {
+		if ( $this->admin ) {
+			$this->location = 'Admin/';
+		} else {
+			$this->location = 'Frontend/';
+		}
 	}
 }

@@ -23,9 +23,21 @@ class Term extends Singleton implements TermInterface {
 	protected function __construct() {
 		$this->cache = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'terms' );
 
+		add_action( 'edited_terms', [ $this, 'clear_cache' ], 20, 2 );
+
+
 		if ( ! is_admin() ) {
 			add_filter( 'get_terms', [ $this, 'prepare_collection' ] );
 		}
+	}
+
+	/**
+	 * Clears the cache
+	 */
+	public function clear_cache( $term_id, $taxonomy ) {
+		$this->cache->clear();
+
+		return $this;
 	}
 
 	/**
@@ -55,16 +67,16 @@ class Term extends Singleton implements TermInterface {
 			*/
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/global', $meta->meta_value );
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/' . $meta->meta_key,
-				$meta->meta_value );
+					$meta->meta_value );
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/' . $term->taxonomy . '/' . $meta->meta_key,
-				$meta->meta_value );
+					$meta->meta_value );
 
 			if ( $term->term_id == $meta->term_id ) {
 				if ( isset( $term->meta->{$meta->meta_key} ) ) {
 					if ( ! is_array( $term->meta->{$meta->meta_key} ) ) {
 						$term->meta->{$meta->meta_key} = [
-							$term->meta->{$meta->meta_key},
-							$meta->meta_value
+								$term->meta->{$meta->meta_key},
+								$meta->meta_value
 						];
 					} else {
 						$term->meta->{$meta->meta_key}[] = $meta->meta_value;

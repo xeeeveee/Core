@@ -105,7 +105,7 @@ class PostDecorator extends Decorator implements DecoratorInterface {
 		     && class_exists( $this->meta_decorator )
 		     && is_subclass_of( $this->meta_decorator, 'Xeeeveee\Core\WordPress\Decorators\DecoratorInterface' )
 		) {
-			return new $this->meta_decorator( $this->original->meta );
+			return new $this->meta_decorator( $this->original );
 		}
 
 		return $this->original->meta;
@@ -122,7 +122,7 @@ class PostDecorator extends Decorator implements DecoratorInterface {
 		     && class_exists( $this->term_decorator )
 		     && is_subclass_of( $this->term_decorator, 'Xeeeveee\Core\WordPress\Decorators\DecoratorInterface' )
 		) {
-			$taxonomies      = get_object_vars( $this->original->terms );
+			$taxonomies      = get_object_vars( $this->original );
 			$decorated_terms = new StdClass();
 
 			foreach ( $taxonomies as $taxonomy => $terms ) {

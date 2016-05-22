@@ -17,6 +17,11 @@ abstract class Decorator implements DecoratorInterface {
 	/**
 	 * @var string
 	 */
+	protected $path = '';
+
+	/**
+	 * @var string
+	 */
 	protected $meta_decorator = '';
 
 	/**
@@ -49,12 +54,29 @@ abstract class Decorator implements DecoratorInterface {
 	 * @return mixed|null
 	 */
 	public function __get( $property ) {
-
 		$method = 'get_' . $property;
 		if ( method_exists( $this, $method ) ) {
 			return $this->{$method}( $property );
-		} elseif ( is_object( $this->original ) && isset( $this->original->{$property} ) ) {
-			return $this->original->{$property};
+		} else {
+			if(!empty($this->path) && is_string($this->path)) {
+				$parts = explode( $this->path, '.' );
+				$value = $this->original;
+
+				foreach ( $parts as $part ) {
+					if ( isset( $value->{$part} ) ) {
+						$value = $value->{$part};
+					} else {
+						return null;
+					}
+				}
+
+				if ( is_object( $value ) && isset( $value->{$property} ) ) {
+					return $value->{$property};
+				}
+
+			} elseif ( is_object( $this->original ) && isset( $this->original->{$property} ) ) {
+				return $this->original->{$property};
+			}
 		}
 
 		return null;

@@ -10,6 +10,11 @@ class TermDecorator extends Decorator implements DecoratorInterface {
 	protected $meta_decorator = 'Xeeeveee\Core\WordPress\Decorators\TermMetaDecorator';
 
 	/**
+	 * @inherit
+	 */
+	protected $path = 'term';
+
+	/**
 	 * Attach a meta decorator
 	 *
 	 * @return mixed

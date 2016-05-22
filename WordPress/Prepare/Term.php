@@ -23,7 +23,8 @@ class Term extends Singleton implements TermInterface {
 	protected function __construct() {
 		$this->cache = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'terms' );
 
-		add_action( 'edited_terms', [ $this, 'clear_cache' ], 20, 2 );
+		add_action( 'edited_terms', [ $this, 'clear_cache' ] );
+		add_action( 'save_post', [ $this, 'clear_cache' ] );
 
 
 		if ( ! is_admin() ) {
@@ -34,7 +35,7 @@ class Term extends Singleton implements TermInterface {
 	/**
 	 * Clears the cache
 	 */
-	public function clear_cache( $term_id, $taxonomy ) {
+	public function clear_cache() {
 		$this->cache->clear();
 
 		return $this;

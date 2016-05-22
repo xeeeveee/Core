@@ -30,6 +30,7 @@ class Post extends Singleton implements PostInterface {
 		$this->term_transformer = Term::get_instance();
 		$this->cache            = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'posts' );
 
+		add_action( 'edited_terms', [ $this, 'clear_cache' ] );
 		add_action( 'save_post', [ $this, 'clear_cache' ] );
 
 		if ( ! is_admin() ) {

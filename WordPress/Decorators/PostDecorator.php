@@ -120,7 +120,7 @@ class PostDecorator extends Decorator implements DecoratorInterface {
 		if ( isset( $this->term_decorator )
 		     && is_string( $this->term_decorator )
 		     && class_exists( $this->term_decorator )
-		     && is_subclass_of( $this->term_decorator, 'DecoratorInterface' )
+		     && is_subclass_of( $this->term_decorator, 'Xeeeveee\Core\WordPress\Decorators\DecoratorInterface' )
 		) {
 			$taxonomies      = get_object_vars( $this->original->terms );
 			$decorated_terms = new StdClass();

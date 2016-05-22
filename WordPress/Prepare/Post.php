@@ -30,9 +30,20 @@ class Post extends Singleton implements PostInterface {
 		$this->term_transformer = Term::get_instance();
 		$this->cache            = new Cache( 'cache' . DIRECTORY_SEPARATOR . 'posts' );
 
+		add_action( 'save_post', [ $this, 'clear_cache' ] );
+
 		if ( ! is_admin() ) {
 			add_filter( 'the_posts', [ $this, 'prepare_collection' ], 20, 2 );
 		}
+	}
+
+	/**
+	 * Clears the cache
+	 */
+	public function clear_cache() {
+		$this->cache->clear();
+
+		return $this;
 	}
 
 	/**
@@ -105,15 +116,15 @@ class Post extends Singleton implements PostInterface {
 			 */
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/global', $meta->meta_value );
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/global/' . $meta->meta_key,
-				$meta->meta_value );
+					$meta->meta_value );
 			$meta->meta_value = apply_filters( $this->filter_base . 'prepare/meta/' . $post->post_type . '/' . $meta->meta_key,
-				$meta->meta_value );
+					$meta->meta_value );
 
 			if ( isset( $post->meta->{$meta->meta_key} ) ) {
 				if ( ! is_array( $post->meta->{$meta->meta_key} ) ) {
 					$post->meta->{$meta->meta_key} = [
-						$post->meta->{$meta->meta_key},
-						$meta->meta_value
+							$post->meta->{$meta->meta_key},
+							$meta->meta_value
 					];
 				} else {
 					$post->meta->{$meta->meta_key}[] = $meta->meta_value;

@@ -45,7 +45,7 @@ class PostDecorator extends Decorator implements DecoratorInterface {
 	 *
 	 * @return mixed|void
 	 */
-	public function get_excerpt() {
+	public function get_post_excerpt() {
 		return apply_filters( 'the_excerpt', $this->original->post_excerpt );
 	}
 

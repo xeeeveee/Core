@@ -59,7 +59,7 @@ abstract class Decorator implements DecoratorInterface {
 			return $this->{$method}( $property );
 		} else {
 			if(!empty($this->path) && is_string($this->path)) {
-				$parts = explode( $this->path, '.' );
+				$parts = explode( '.', $this->path );
 				$value = $this->original;
 
 				foreach ( $parts as $part ) {

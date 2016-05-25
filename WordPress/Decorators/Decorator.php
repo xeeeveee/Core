@@ -83,6 +83,44 @@ abstract class Decorator implements DecoratorInterface {
 	}
 
 	/**
+	 * Check if a magic method isset
+	 *
+	 * Required to use isset, empty and similar functions on values accesed via magic methods
+	 *
+	 * @param $property
+	 *
+	 * @return bool
+	 */
+	public function __isset( $property ) {
+		$method = 'get_' . $property;
+		if ( method_exists( $this, $method ) ) {
+			return true;
+		} else {
+			if(!empty($this->path) && is_string($this->path)) {
+				$parts = explode( '.', $this->path );
+				$value = $this->original;
+
+				foreach ( $parts as $part ) {
+					if ( isset( $value->{$part} ) ) {
+						$value = $value->{$part};
+					} else {
+						return false;
+					}
+				}
+
+				if ( is_object( $value ) && isset( $value->{$property} ) ) {
+					return true;
+				}
+
+			} elseif ( is_object( $this->original ) && isset( $this->original->{$property} ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Set the meta decorator
 	 *
 	 * Allows the meta decorator to be overwritten

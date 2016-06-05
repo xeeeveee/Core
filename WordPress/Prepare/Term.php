@@ -178,7 +178,7 @@ class Term extends Singleton implements TermInterface {
 			$ids = [ ];
 			foreach ( $terms as $term ) {
 				if ( $term instanceof WP_Term ) {
-					$ids[] = base_convert( $term->ID, 10, 36 );
+					$ids[] = base_convert( $term->term_id, 10, 36 );
 				}
 			}
 
@@ -186,7 +186,7 @@ class Term extends Singleton implements TermInterface {
 		}
 
 		if ( $terms instanceof WP_Term ) {
-			return base_convert( $terms->ID, 10, 36 );
+			return base_convert( $terms->term_id, 10, 36 );
 		}
 
 		return false;
